@@ -6,6 +6,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const livraisonList = document.getElementById('livraisons-list');
     const dateField = document.getElementById('date');
     const suivantButton = document.getElementById('suivantButton');
+    const overlay = document.getElementById('overlay');
+
+    
+
+// Ouvrir le popup et l'overlay
+    addButton.addEventListener('click', function() {
+        popupForm.style.display = 'block';
+        overlay.classList.add('active'); // Activer l'overlay
+    });
+    
+
+    // Fermer le popup et l'overlay
+    cancelButton.addEventListener('click', function() {
+        popupForm.style.display = 'none';
+        overlay.classList.remove('active'); // Désactiver l'overlay
+    });
+
+    // Fermer le popup si on clique sur l'overlay
+    overlay.addEventListener('click', function() {
+        popupForm.style.display = 'none';
+        overlay.classList.remove('active'); // Désactiver l'overlay
+    });
+
+// ::::::::::::::::::::
+
+
 
     // Afficher la date du jour automatiquement
     const currentDate = new Date().toLocaleDateString('fr-CA');

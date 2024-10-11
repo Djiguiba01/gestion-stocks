@@ -44,39 +44,123 @@
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
+
         /* Style pour le pop-up */
-        .modal {
-            display: none; /* Caché par défaut */
-            position: fixed; /* Reste en place */
-            z-index: 1; /* Au-dessus du contenu */
-            left: 0;
-            top: 0;
-            width: 100%; /* Plein écran */
-            height: 100%; /* Plein écran */
-            overflow: auto; /* Défilement si nécessaire */
-            background-color: rgb(0,0,0); /* Fond noir */
-            background-color: rgba(0,0,0,0.4); /* Fond noir avec opacité */
-            padding-top: 60px; /* Espace en haut */
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto; /* 15% de haut, centré */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Largeur */
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+      /* Style pour le modal */
+.modal {
+    display: none; /* Masquer par défaut */
+    position: fixed; /* Rester en place */
+    z-index: 1; /* Au-dessus de tout */
+    left: 0;
+    top: 0;
+    width: 100%; /* Plein écran */
+    height: 100%; /* Plein écran */
+    overflow: auto; /* Ajouter un défilement si nécessaire */
+    background-color: rgba(0, 0, 0, 0.5); /* Couleur de fond avec transparence */
+}
+
+/* Contenu du modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Centre le modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Largeur du modal */
+    max-width: 500px; /* Largeur maximum */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre */
+}
+
+/* Style pour le bouton de fermeture */
+.close {
+    color: #aaa;
+    float: right; /* À droite */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black; /* Changer la couleur au survol */
+    text-decoration: none;
+    cursor: pointer; /* Curseur pointer */
+}
+.buttoncontainerligne {
+    display: flex; /* Disposition horizontale pour les boutons */
+    justify-content: space-between; /* Espacement égal entre les boutons */
+    margin-top: 20px; /* Espacement au-dessus des boutons */
+}
+/* Style pour les labels et inputs */
+label {
+    display: block; /* Afficher en bloc */
+    margin: 10px 0 5px; /* Marges */
+    font-weight: bold; /* Gras */
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%; /* Pleine largeur */
+    padding: 10px; /* Espacement intérieur */
+    margin: 5px 0 15px; /* Marges */
+    border: 1px solid #ccc; /* Bordure */
+    border-radius: 4px; /* Coins arrondis */
+    box-sizing: border-box; /* Inclure les bordures et le padding dans la largeur totale */
+}
+
+/* Style pour les boutons */
+button {
+    background-color: #4CAF50; /* Vert */
+    color: white; /* Texte blanc */
+    padding: 10px 15px; /* Espacement */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer; /* Curseur pointer */
+    margin-right: 10px; /* Espacement entre les boutons */
+}
+
+button:hover {
+    background-color: #45a049; /* Couleur plus sombre au survol */
+}
+
+#deleteItemBtn {
+    background-color: #f44336; /* Rouge */
+}
+
+#deleteItemBtn:hover {
+    background-color: #d32f2f; /* Couleur plus sombre au survol */
+}
+
+
+        /* Style pour le bouton avec la classe uneLigne */
+
+        .button-container {
+            padding-top: 3%;
+    display: flex; /* Utiliser Flexbox */
+    justify-content: flex-end; /* Aligner le bouton à droite */
+    margin-bottom: 20px; /* Optionnel : espace en bas du conteneur */
+}
+
+.uneLigne {
+    background-color: darkslateblue; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 10px 15px;    font-size: 16px; /* Taille de la police */
+    cursor: pointer; /* Curseur de la souris */
+    transition: background-color 0.3s; /* Animation pour le changement de couleur */
+}
+
+
+
+.uneLigne i {
+    margin-right: 5px; /* Espacement à droite de l'icône */
+}
+.popuptext{
+    text-align: center;
+    color: darkblue;
+}
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
@@ -84,14 +168,22 @@
 <body>
     <h1>Détails de la Livraison</h1>
     <div id="detailsContainer" class="details"></div>
-    <button class="uneLigne" id="addRowBtn"><i class="fas fa-plus"></i> Ajouter une ligne</button> <!-- Bouton pour ajouter une ligne -->
-    <button class="float-button" id="downloadBtn" style="right: 130px;"><i class="fas fa-download"></i> Télécharger</button> <!-- Bouton flottant avec icône -->
+    <div class="button-container">
+        <button class="uneLigne" id="addRowBtn">
+            <!-- <i class="fas fa-plus"></i> -->
+             Ajouter une ligne
+             
+        </button>
+    </div>
+        <button class="float-button" id="downloadBtn" style="right: 130px;"><i class="fas fa-download"></i> Télécharger</button> <!-- Bouton flottant avec icône -->
 
     <!-- Modale pour afficher les détails de l'article -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Modifier cette ligne</h2>
+            <div class="popuptext">
+                <h2>MODIFIER CETTE LIGNE</h2>
+            </div>
             <label for="designation">Désignation:</label>
             <input type="text" id="designation" />
             <label for="variete">Variété:</label>
@@ -105,8 +197,10 @@
                 <option value="boîte(s)">boîte(s)</option>
                 <option value="pièce(s)">pièce(s)</option>
             </select>
-            <button id="saveChangesBtn">Sauvegarder les modifications</button>
-            <button id="deleteItemBtn">Supprimer l'article</button>
+            <div class="buttoncontainerligne"> <!-- Conteneur pour les boutons -->
+                <button id="saveChangesBtn">Modifier</button>
+                <button id="deleteItemBtn">Supprimer</button>
+            </div>
         </div>
     </div>
 
@@ -114,7 +208,10 @@
     <div id="addRowModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeAddRowModal()">&times;</span>
-            <h2>Ajouter une nouvelle ligne</h2>
+            
+            <div class="popuptext">
+                <h2>AJOUTER UNE LIGNE</h2>
+            </div>
             <label for="newDesignation">Désignation:</label>
             <input type="text" id="newDesignation" />
             <label for="newVariete">Variété:</label>
