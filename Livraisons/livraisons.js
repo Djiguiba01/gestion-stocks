@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const livraisonList = document.getElementById('livraisons-list');
     const dateField = document.getElementById('date');
     const suivantButton = document.getElementById('suivantButton');
-  
+
     // Afficher la date du jour automatiquement
     const currentDate = new Date().toLocaleDateString('fr-CA');
     dateField.value = currentDate;
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayLivraisons() {
         livraisonList.innerHTML = '';
 
-        livraisons.forEach((livraison, index) => {
+        livraisons.forEach((livraison) => {
             const li = document.createElement('li');
             li.textContent = `${livraison.destination} - ${livraison.date}`;
             livraisonList.appendChild(li);
@@ -100,89 +100,69 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('unite').value = '';
         }
     }
-// :::::::::::::::::::::::::::::::::::::::::::::::::
-// Variables pour le popup de détails
-const detailPopup = document.getElementById('detailPopup');
-const popupMessage = document.getElementById('popupMessage');
 
-const viewDetailButton = document.getElementById('viewDetailButton');
-const closeDetailPopup = document.getElementById('closeDetailPopup');
+    // Variables pour le popup de détails
+    const detailPopup = document.getElementById('detailPopup');
+    const popupMessage = document.getElementById('popupMessage');
+    const viewDetailButton = document.getElementById('viewDetailButton');
+    const closeDetailPopup = document.getElementById('closeDetailPopup');
 
+    // Variables pour le popup de confirmation de suppression
+    const deleteConfirmationPopup = document.getElementById('deleteConfirmationPopup');
+    const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+    const cancelDeleteButton = document.getElementById('cancelDeleteButton');
 
-// Variables pour le popup de confirmation de suppression
-const deleteConfirmationPopup = document.getElementById('deleteConfirmationPopup');
-const confirmDeleteButton = document.getElementById('confirmDeleteButton');
-const cancelDeleteButton = document.getElementById('cancelDeleteButton');
-const closeDeletePopup = document.getElementById('closeDeletePopup');
+    let selectedLivraison; // Déclare la variable selectedLivraison au niveau global
 
-let selectedLivraison; // Déclare la variable selectedLivraison au niveau global
+    // Afficher les détails de la livraison dans le popup
+    function showLivraisonDetails(livraison) {
+        popupMessage.textContent = `Détails pour la livraison: ${livraison.destination} - ${livraison.date}`;
+        detailPopup.style.display = 'block';
+        selectedLivraison = livraison; // Stocker la livraison sélectionnée
 
+        // Gérer le clic sur "Voir les détails"
+        viewDetailButton.onclick = function() {
+            // Rediriger vers une autre page
+            window.location.href = `detailslivraisons.html?id=${livraison.destination}`; // Changez l'URL comme nécessaire
+        };
 
-// Afficher les détails de la livraison dans le popup
-function showLivraisonDetails(livraison) {
-    popupMessage.textContent = `Détails pour la livraison: ${livraison.destination} - ${livraison.date}`;
-    detailPopup.style.display = 'block';
+        // Gérer le clic sur "Supprimer"
+        const deleteButton = document.getElementById('deleteButton');
+        deleteButton.onclick = function() {
+            // Afficher le popup de confirmation
+            deleteConfirmationPopup.style.display = 'block';
+        };
 
-   
+        // Gérer le clic sur le bouton de confirmation de suppression
+        confirmDeleteButton.onclick = function() {
+            // Code pour supprimer la livraison de la liste
+            livraisons = livraisons.filter(l => l.destination !== selectedLivraison.destination);
+            localStorage.setItem('livraisons', JSON.stringify(livraisons));
+            displayLivraisons(); // Mettre à jour l'affichage
+            detailPopup.style.display = 'none'; // Fermer le popup de détails
+            deleteConfirmationPopup.style.display = 'none'; // Fermer le popup de confirmation
+        };
 
-    // Gérer le clic sur "Voir les détails"
-    viewDetailButton.onclick = function() {
-        // Rediriger vers une autre page
-        window.location.href = `detailslivraisons.html?id=${livraison.destination}`; // Changez l'URL comme nécessaire
-    };
-    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    
-    selectedLivraison = livraison; // Stocker la livraison sélectionnée
+        // Gérer le clic sur le bouton d'annulation de suppression
+        cancelDeleteButton.onclick = function() {
+            deleteConfirmationPopup.style.display = 'none'; // Fermer le popup de confirmation
+        };
 
-    popupMessage.textContent = `Détails pour la livraison: ${livraison.destination} - ${livraison.date}`;
-    detailPopup.style.display = 'block';
+        // Gérer le clic sur le bouton de fermeture du popup de détails
+        closeDetailPopup.onclick = function() {
+            detailPopup.style.display = 'none'; // Fermer le popup de détails
+        };
 
-   
+        // Optionnel: fermer le popup de confirmation si on clique en dehors
+        window.onclick = function(event) {
+            if (event.target === deleteConfirmationPopup) {
+                deleteConfirmationPopup.style.display = 'none';
+            }
+        };
+    }
 
-   
-
-    // Gérer le clic sur "Supprimer"
-    const deleteButton = document.getElementById('deleteButton');
-
-    deleteButton.onclick = function() {
-        // Afficher le popup de confirmation
-        deleteConfirmationPopup.style.display = 'block';
-    };
-
-    // Gérer le clic sur le bouton de confirmation de suppression
-    confirmDeleteButton.onclick = function() {
-        // Code pour supprimer la livraison de la liste
-        livraisons = livraisons.filter(livraison => livraison.destination !== selectedLivraison.destination);
-        localStorage.setItem('livraisons', JSON.stringify(livraisons));
-        displayLivraisons(); // Mettre à jour l'affichage
-        detailPopup.style.display = 'none'; // Fermer le popup de détails
-        deleteConfirmationPopup.style.display = 'none'; // Fermer le popup de confirmation
-    };
-
-    // Gérer le clic sur le bouton d'annulation de suppression
-    cancelDeleteButton.onclick = function() {
-        deleteConfirmationPopup.style.display = 'none'; // Fermer le popup de confirmation
-    };
-
-    // Gérer le clic sur le bouton de fermeture du popup de détails
-    closeDetailPopup.onclick = function() {
-        detailPopup.style.display = 'none'; // Fermer le popup de détails
-    };
-
-    // Optionnel: fermer le popup de confirmation si on clique en dehors
-    window.onclick = function(event) {
-        if (event.target === deleteConfirmationPopup) {
-            deleteConfirmationPopup.style.display = 'none';
-        }
-    };
-
-}
-
-// Fermer le popup de détails
-closeDetailPopup.addEventListener('click', function() {
-    detailPopup.style.display = 'none';
-});
-
-
-   
+    // Fermer le popup de détails
+    closeDetailPopup.addEventListener('click', function() {
+        detailPopup.style.display = 'none';
+    });
 });

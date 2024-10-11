@@ -33,6 +33,7 @@
             <div id="popupForm" class="popup">
                 <form id="livraisonForm">
                     <h2>Ajouter une Livraison</h2>
+                    
                     <label for="destination">Destination:</label>
                     <input type="text" id="destination" name="destination" required>
                     
@@ -52,38 +53,47 @@
                         <option value="boîte(s)">boîte(s)</option>
                         <option value="pièce(s)">pièce(s)</option>
                     </select>
-        
+                
                     <label for="date">Date:</label>
                     <input type="text" id="date" name="date" disabled>
-        
-                    <button type="button" id="suivantButton">Suivant</button>
-<button type="submit">Enregistrer</button>
-
-                    
-                    <button type="button" id="cancelButton">Annuler</button>
+                
+                    <!-- Conteneur pour les boutons -->
+                    <div class="form-buttons">
+                        <button type="button" id="suivantButton">Suivant</button>
+                        <button type="submit">Enregistrer</button>
+                        <button type="button" id="cancelButton">Annuler</button>
+                    </div>
                 </form>
+                
             </div>
 </div>
            
 <!-- Popup de détails de livraison -->
+<!-- Popup de détails de livraison -->
 <div id="detailPopup" class="popup" style="display: none;">
-    <h2>Détails de la livraison</h2>
-    <p id="popupMessage"></p>
-    <button id="viewDetailButton">Voir les détails</button>
-    <button id="deleteButton">Supprimer</button> <!-- Nouveau bouton de suppression -->
-    <button id="closeDetailPopup">Fermer</button>
-</div>
-
-
-<!-- Popup de confirmation de suppression -->
-<div id="deleteConfirmationPopup" class="popup" style="display:none;">
     <div class="popup-content">
-        <span class="close" id="closeDeletePopup">&times;</span>
-        <p>Êtes-vous sûr de vouloir supprimer cette livraison ?</p>
-        <button id="confirmDeleteButton">Oui, supprimer</button>
-        <button id="cancelDeleteButton">Annuler</button>
+        <h2>Détails de la livraison</h2>
+        <p id="popupMessage"></p>
+        <div class="button-container"> <!-- Conteneur pour les boutons -->
+            <button id="viewDetailButton">Voir les détails</button>
+            <button id="deleteButton">Supprimer</button>
+            <button id="closeDetailPopup">Fermer</button>
+        </div>
     </div>
 </div>
+
+<!-- Popup de confirmation de suppression -->
+<div id="deleteConfirmationPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+        <!-- <span class="close" id="closeDeletePopup">&times;</span> -->
+        <p>Êtes-vous sûr de vouloir supprimer cette livraison ?</p>
+        <div class="button-container"> <!-- Conteneur pour les boutons -->
+            <button id="confirmDeleteButton">Supprimer</button>
+            <button id="cancelDeleteButton">Annuler</button>
+        </div>
+    </div>
+</div>
+
 
 
 

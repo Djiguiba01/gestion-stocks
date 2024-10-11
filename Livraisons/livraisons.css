@@ -31,10 +31,10 @@
 }
 
 .float-button:hover {
-    background-color: #219653;
+    background-color: orangered;
 }
 
-/* Popup form */
+/* Popup Ajouter Livraison::::::::::: */
 .popup {
     display: none; 
     position: fixed;
@@ -75,39 +75,88 @@
     margin-top: 15px;
 }
 
-/* Modal de détails de livraison */
-#livraisonDetailsModal {
-    display: none; /* Caché par défaut */
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -20%);
-    background-color: white;
-    padding: 20px;
-    border: 1px solid black;
-    z-index: 1000; /* S'assure que le modal est au-dessus */
-}
 
-#livraisonDetailsModal div {
-    position: relative;
-}
+/* :::::::::::::::::::: */
+/* Style pour aligner les boutons avec espace entre eux */
 
-#livraisonDetailsModal #closeDetailsButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+/* Style général pour tous les boutons dans le formulaire */
+#livraisonForm button {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Couleur des boutons */
+    color: white;
+    border: none;
     cursor: pointer;
+    border-radius: 5px;
 }
 
-/* Popup de détails */
-#detailsPopup {
-    display: none; /* Caché par défaut */
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -20%);
-    background-color: white;
-    padding: 20px;
-    border: 1px solid black;
-    z-index: 1000; /* S'assure que le popup est au-dessus */
+/* Style spécifique pour le bouton Annuler */
+#livraisonForm #cancelButton { /* Augmentez la spécificité */
+    background-color: red; /* Couleur de fond rouge */
+    color: white; /* Couleur du texte en blanc */
 }
+
+
+
+/* Conteneur pour les boutons */
+.form-buttons {
+    display: flex;
+    justify-content: space-between; /* Espacement égal entre les boutons */
+    gap: 10px; /* Espacement entre les boutons */
+}
+
+.form-buttons button {
+    flex-grow: 1; /* Pour que les boutons prennent la même largeur */
+}
+
+/* :::::::::::::::::::::::::::::: */
+
+
+/* Style pour les boutons dans le popup */
+.popup-content button {
+    padding: 10px 15px; /* Espacement interne */
+    border: none; /* Suppression de la bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur main au survol */
+    margin: 5px 0; /* Espacement vertical entre les boutons */
+}
+
+/* Style pour le conteneur des boutons */
+.button-container {
+    display: flex; /* Utilisation de Flexbox pour les boutons */
+    justify-content: space-between; /* Espacement égal entre les boutons */
+    margin-top: 15px; /* Espacement au-dessus des boutons */
+}
+
+/* Styles des boutons (inchangés) */
+#viewDetailButton {
+    background-color: #4CAF50; /* Couleur verte */
+    color: white; /* Couleur du texte */
+}
+
+#deleteButton {
+    background-color: red; /* Couleur rouge */
+    color: white; /* Couleur du texte */
+}
+
+#closeDetailPopup {
+    background-color: #f44336; /* Rouge plus clair */
+    color: white; /* Couleur du texte */
+}
+
+#confirmDeleteButton {
+    background-color: #f44336; /* Rouge */
+    color: white; /* Couleur du texte */
+}
+
+#cancelDeleteButton {
+    background-color: #4CAF50; /* Vert */
+    color: white; /* Couleur du texte */
+}
+
+.popup-content button:hover {
+    opacity: 0.9; /* Réduction de l'opacité au survol */
+}
+
+
+
+/* :::::::::::: */
