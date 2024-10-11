@@ -84,13 +84,14 @@
 <body>
     <h1>Détails de la Livraison</h1>
     <div id="detailsContainer" class="details"></div>
-    <button class="float-button" id="downloadBtn"><i class="fas fa-download"></i> Télécharger</button> <!-- Bouton flottant avec icône -->
+    <button class="uneLigne" id="addRowBtn"><i class="fas fa-plus"></i> Ajouter une ligne</button> <!-- Bouton pour ajouter une ligne -->
+    <button class="float-button" id="downloadBtn" style="right: 130px;"><i class="fas fa-download"></i> Télécharger</button> <!-- Bouton flottant avec icône -->
 
     <!-- Modale pour afficher les détails de l'article -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Détails de l'article</h2>
+            <h2>Modifier cette ligne</h2>
             <label for="designation">Désignation:</label>
             <input type="text" id="designation" />
             <label for="variete">Variété:</label>
@@ -98,11 +99,36 @@
             <label for="quantite">Quantité:</label>
             <input type="number" id="quantite" />
             <label for="unite">Unité:</label>
-            <input type="text" id="unite" />
-            <label for="destination">Destination:</label>
-            <input type="text" id="destination" />
+            <select id="unite" name="unite" required>
+                <option value="gr">gr</option>
+                <option value="kg">kg</option>
+                <option value="boîte(s)">boîte(s)</option>
+                <option value="pièce(s)">pièce(s)</option>
+            </select>
             <button id="saveChangesBtn">Sauvegarder les modifications</button>
             <button id="deleteItemBtn">Supprimer l'article</button>
+        </div>
+    </div>
+
+    <!-- Modale pour ajouter une nouvelle ligne -->
+    <div id="addRowModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddRowModal()">&times;</span>
+            <h2>Ajouter une nouvelle ligne</h2>
+            <label for="newDesignation">Désignation:</label>
+            <input type="text" id="newDesignation" />
+            <label for="newVariete">Variété:</label>
+            <input type="text" id="newVariete" />
+            <label for="newQuantite">Quantité:</label>
+            <input type="number" id="newQuantite" />
+            <label for="newUnite">Unité:</label>
+            <select id="newUnite" name="newUnite" required>
+                <option value="gr">gr</option>
+                <option value="kg">kg</option>
+                <option value="boîte(s)">boîte(s)</option>
+                <option value="pièce(s)">pièce(s)</option>
+            </select>
+            <button id="addRowBtnModal">Ajouter</button>
         </div>
     </div>
 
@@ -113,6 +139,7 @@
         const detailsContainer = document.getElementById('detailsContainer');
         const modal = document.getElementById("myModal");
         const closeModal = document.getElementsByClassName("close")[0];
+        const addRowModal = document.getElementById("addRowModal");
 
         // Afficher les détails de la livraison
         function displayDetails() {
@@ -159,7 +186,6 @@
             document.getElementById('variete').value = article.variete;
             document.getElementById('quantite').value = article.quantite;
             document.getElementById('unite').value = article.unite;
-            document.getElementById('destination').value = livraison.destination;
 
             modal.style.display = "block";
 
@@ -174,44 +200,85 @@
             };
         }
 
-        // Fonction pour sauvegarder les modifications
+        // Sauvegarder les modifications
         function saveChanges(index) {
             const livraison = livraisons.find(l => l.destination === destinationId);
-            const article = livraison.articles[index];
+            livraison.articles[index].designation = document.getElementById('designation').value;
+            livraison.articles[index].variete = document.getElementById('variete').value;
+            livraison.articles[index].quantite = document.getElementById('quantite').value;
+            livraison.articles[index].unite = document.getElementById('unite').value;
 
-            article.designation = document.getElementById('designation').value;
-            article.variete = document.getElementById('variete').value;
-            article.quantite = document.getElementById('quantite').value;
-            article.unite = document.getElementById('unite').value;
-
-            localStorage.setItem('livraisons', JSON.stringify(livraisons)); // Sauvegarder dans le localStorage
+            localStorage.setItem('livraisons', JSON.stringify(livraisons));
             modal.style.display = "none"; // Fermer la modale
-            displayDetails(); // Rafraîchir les détails affichés
+            displayDetails(); // Rafraîchir l'affichage
         }
 
-        // Fonction pour supprimer l'article
+        // Supprimer un article
         function deleteItem(index) {
             const livraison = livraisons.find(l => l.destination === destinationId);
-            livraison.articles.splice(index, 1); // Supprimer l'article
-            localStorage.setItem('livraisons', JSON.stringify(livraisons)); // Sauvegarder dans le localStorage
+            livraison.articles.splice(index, 1); // Supprimer l'article à l'index
+            localStorage.setItem('livraisons', JSON.stringify(livraisons));
             modal.style.display = "none"; // Fermer la modale
-            displayDetails(); // Rafraîchir les détails affichés
+            displayDetails(); // Rafraîchir l'affichage
         }
 
-        // Événement pour fermer la modale
+       
+        // Ouvrir la modale pour ajouter une nouvelle ligne
+        document.getElementById('addRowBtn').addEventListener('click', function() {
+            openAddRowModal();
+        });
+
+        // Fonction pour ouvrir la modale d'ajout de ligne
+        function openAddRowModal() {
+            addRowModal.style.display = "block";
+        }
+
+        // Fermer la modale d'ajout de ligne
+        function closeAddRowModal() {
+            addRowModal.style.display = "none";
+        }
+
+        // Ajouter une nouvelle ligne
+        document.getElementById('addRowBtnModal').addEventListener('click', function() {
+            const newDesignation = document.getElementById('newDesignation').value;
+            const newVariete = document.getElementById('newVariete').value;
+            const newQuantite = document.getElementById('newQuantite').value;
+            const newUnite = document.getElementById('newUnite').value;
+
+            if (newDesignation && newQuantite) {
+                const livraison = livraisons.find(l => l.destination === destinationId);
+                livraison.articles.push({
+                    designation: newDesignation,
+                    variete: newVariete,
+                    quantite: newQuantite,
+                    unite: newUnite
+                });
+                localStorage.setItem('livraisons', JSON.stringify(livraisons));
+                closeAddRowModal(); // Fermer la modale
+                displayDetails(); // Rafraîchir l'affichage
+            } else {
+                alert('Veuillez remplir tous les champs obligatoires.');
+            }
+        });
+
+        // Fermer la modale au clic sur la croix
         closeModal.onclick = function() {
             modal.style.display = "none";
-        }
+        };
 
-        // Événement pour cliquer en dehors de la modale
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        }
+        // Fermer la modale d'ajout de ligne au clic sur la croix
+        addRowModal.getElementsByClassName("close")[0].onclick = function() {
+            closeAddRowModal();
+        };
+        
 
-     // Fonction pour télécharger le contenu sous forme de PDF
-     async function downloadPDF() {
+        // Afficher les détails dès le chargement de la page
+        displayDetails();
+
+
+        
+        // Fonction pour télécharger le contenu sous forme de PDF
+        async function downloadPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
@@ -249,9 +316,6 @@
         // Écouteur d'événements pour le bouton de téléchargement
         document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
 
-
-        // Appeler la fonction pour afficher les détails
-        displayDetails();
     </script>
 </body>
 </html>
