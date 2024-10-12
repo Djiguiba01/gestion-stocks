@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails de la Livraison</title>
+    <link rel="icon" type="image/x-icon" href="../images/sitelogo/favicon.ico"> <!-- Remplacez le chemin par celui de votre image -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Inclure Font Awesome -->
     <style>
         body {
@@ -207,7 +209,7 @@ button:hover {
     <!-- Modale pour ajouter une nouvelle ligne -->
     <div id="addRowModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeAddRowModal()">&times;</span>
+            <span class="close" onclick="closeAddRowModal()" style="display: none;">&times;</span>
             
             <div class="popuptext">
                 <h2>AJOUTER UNE LIGNE</h2>
@@ -225,7 +227,10 @@ button:hover {
                 <option value="boîte(s)">boîte(s)</option>
                 <option value="pièce(s)">pièce(s)</option>
             </select>
-            <button id="addRowBtnModal">Ajouter</button>
+            <div class="toutboutons" style="display: flex;justify-content: space-between; padding: 10px;">
+                <button id="addRowBtnModal">Ajouter</button>
+            <button  onclick="closeAddRowModal()" style="background-color: red;">Annuler</button>
+            </div>
         </div>
     </div>
 

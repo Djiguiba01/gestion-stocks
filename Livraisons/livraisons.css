@@ -138,10 +138,7 @@
     color: white; /* Couleur du texte */
 }
 
-#closeDetailPopup {
-    background-color: #f44336; /* Rouge plus clair */
-    color: white; /* Couleur du texte */
-}
+
 
 #confirmDeleteButton {
     background-color: #f44336; /* Rouge */
@@ -175,4 +172,38 @@
 /* Affiche l'overlay lorsque le popup est ouvert */
 .overlay.active {
     display: block;
+}
+/* : */
+.close {
+    color: #aaa;
+    float: right; /* À droite */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black; /* Changer la couleur au survol */
+    text-decoration: none;
+    cursor: pointer; /* Curseur pointer */
+}
+
+
+.pagedetail {
+    background-color: red; /* Couleur de fond douce */
+    border-radius: 10px; /* Coins arrondis */
+    padding: 15px; /* Espacement interne */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Légère ombre pour ajouter de la profondeur */
+    margin-bottom: 20px; /* Espacement sous la section */
+    /* position: fixed;
+    width: 100%;
+    top: 10%; */
+}
+
+.pagedetail h2 {
+    color: white; /* Couleur du texte principale */
+    font-size: 1.8em; /* Taille du texte */
+    font-family: 'Arial', sans-serif; /* Police lisible */
+    text-align: center; /* Centrage du titre */
+    margin-bottom: 15px; /* Espacement sous le titre */
 }

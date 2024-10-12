@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../images/sitelogo/favicon.ico"> <!-- Remplacez le chemin par celui de votre image -->
+
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="../Livraisons/livraisons.css">
     <title>Menu</title>
@@ -24,7 +26,9 @@
                 </ul>
             </aside>
             <main class="menu-main" id="mainContent">
-                <h2>La liste livraisons</h2>
+                <div class="pagedetail">
+                    <h2>La liste livraisons</h2>
+                </div>
                 <ul id="livraisons-list"></ul>
                  <!-- Bouton flottant pour ajouter -->
             <button id="addButton" class="float-button">Ajouter</button>
@@ -33,6 +37,8 @@
             <div id="overlay" class="overlay"></div>
 
             <div id="popupForm" class="popup">
+                <span class="close"  id="cancelButton" >&times;</span>
+
                 <form id="livraisonForm">
                     <h2>Ajouter une Livraison</h2>
                     
@@ -63,7 +69,7 @@
                     <div class="form-buttons">
                         <button type="button" id="suivantButton">Suivant</button>
                         <button type="submit">Enregistrer</button>
-                        <button type="button" id="cancelButton">Annuler</button>
+                        <!-- <button type="button" id="cancelButton">Annuler</button> -->
                     </div>
                 </form>
                 
@@ -73,21 +79,25 @@
 <!-- Popup de détails de livraison -->
 <!-- Popup de détails de la livraison -->
 <div id="detailPopup" class="popup" style="display: none;">
+    <span class="close" id="closeDetailPopup" >&times;</span>
+
     <div class="popup-content">
-        <h2>Détails de la livraison</h2>
+        <h2 style="text-align: center;">Détails de la livraison</h2>
         <p id="popupMessage"></p>
         <div class="button-container"> <!-- Conteneur pour les boutons -->
             <button id="viewDetailButton">Voir les détails</button>
             <button id="deleteButton">Supprimer</button>
-            <button id="closeDetailPopup">Fermer</button>
+            <!-- <button id="closeDetailPopup">Fermer</button> -->
         </div>
     </div>
 </div>
 
 <!-- Popup de confirmation de suppression -->
 <div id="deleteConfirmationPopup" class="popup" style="display: none;">
+
     <div class="popup-content">
-        <p>Êtes-vous sûr de vouloir supprimer cette livraison ?</p>
+        <h2 style="text-align: center;">Confirmation</h2>
+        <p style="text-align: center;">Êtes-vous sûr de vouloir supprimer cette livraison ?</p>
         <div class="button-container"> <!-- Conteneur pour les boutons -->
             <button id="confirmDeleteButton">Supprimer</button>
             <button id="cancelDeleteButton">Annuler</button>

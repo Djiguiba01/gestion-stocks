@@ -142,8 +142,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Afficher les détails de la livraison dans le popup
     function showLivraisonDetails(livraison) {
-        popupMessage.textContent = `Détails pour la livraison: ${livraison.destination} - ${livraison.date}`;
+        popupMessage.textContent = ` ${livraison.destination} - ${livraison.date}`;
         detailPopup.style.display = 'block';
+        detailPopup.style.textAlign = 'center';
         selectedLivraison = livraison; // Stocker la livraison sélectionnée
 
         // Gérer le clic sur "Voir les détails"
