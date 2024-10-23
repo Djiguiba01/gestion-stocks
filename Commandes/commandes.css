@@ -1,0 +1,277 @@
+/* Styles par défaut pour bureau ou grands écrans */
+.stock-card {
+    justify-content: space-between;
+    display: flex;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    text-align: center;
+    /* max-width: 500px;  */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stock-card h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px; /* Taille de police pour grands écrans */
+}
+.add-product-button, #voirDetailBtn, #cancelDeleteBtn {
+    padding: 10px ;
+    background-color: darkslateblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+#supprimerBtn, #confirmDeleteBtn {
+    padding: 10px ;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+#h2actionPopup{
+    text-align: center;
+    padding-top: 3%;
+}
+#actionPopup, #popupConfirmation{
+    border-radius: 5%;
+     width: 35%;
+     display:none; 
+     position: fixed; 
+     top: 50%; 
+     left: 50%; 
+     transform: translate(-50%, -50%); 
+     background-color: white; 
+     padding: 20px; 
+     box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+     z-index: 1000;
+}
+ /* Responsivité pour les petits écrans */
+ @media (max-width: 600px) {
+    #actionPopup, #popupConfirmation {
+        width: 60%;
+      /* flex-direction: column;  */
+    }
+    .poupselection {
+      /* flex-direction: column; 
+      align-items: center; */
+    }
+    #voirDetailBtn, #supprimerBtn {
+      width: 80%; /* Les boutons occuperont 80% de la largeur du conteneur */
+      margin: 2%;
+    }
+    #h2actionPopup{
+        tab-size: 15px;
+    }
+  }
+.add-product-button:hover {
+    background-color: red; /* Changement de couleur lors du survol */
+}
+.cardliste {
+    display: block;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #f9f9f9; /* Couleur de fond par défaut */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: black; /* Couleur du texte */
+    font-weight: bold;
+    text-align: center; /* Centre le texte */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.cardliste:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: darkmagenta;
+    color: #f9f9f9;
+}
+/* Styles pour les petits écrans (tablettes et téléphones) */
+@media (max-width: 768px) {
+    .stock-card {
+        padding: 15px;
+        margin: 15px;
+        max-width: 100%; /* La carte prend toute la largeur de l'écran */
+    }
+
+    .stock-card h2 {
+        font-size: 20px; /* Réduire la taille de la police sur tablette */
+    }
+
+    .product-list{
+        padding: 15px;
+    }
+
+    .add-product-button {
+        padding: 8px 15px;
+        font-size: 14px; /* Réduire la taille de la police du bouton sur tablette */
+    }
+    /* .menu-main{
+        padding: 20px;
+    } */
+}
+/* Styles pour très petits écrans (mobiles) */
+@media (max-width: 480px) {
+    .stock-card {
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .stock-card h2 {
+        font-size: 18px; /* Taille de police plus petite pour mobile */
+    }
+
+    .add-product-button {
+        padding: 6px 10px;
+        font-size: 12px; /* Réduire encore la taille de la police sur mobile */
+    }
+}
+
+/* ::::::::::::::Popup Ajoute Commande::::::::::: */
+/* Style général du pop-up */
+#popupajoutformul {
+    display: none; /* Le pop-up est masqué par défaut */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centre le pop-up */
+    background-color: #fff; /* Couleur de fond blanche */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre pour un effet flottant */
+    border-radius: 10px; /* Coins arrondis */
+    z-index: 1000; /* S'assurer que le pop-up est au-dessus des autres éléments */
+    width: 80%;
+    max-width: 500px; /* Largeur maximale */
+}
+
+/* Style du bouton de fermeture du pop-up */
+#closePopupBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Style des champs du formulaire */
+#popupajoutformul form div {
+    margin-bottom: 15px; /* Espacement entre les champs */
+}
+
+/* Style des labels du formulaire */
+#popupajoutformul form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Style des champs de saisie */
+#popupajoutformul form input[type="text"],
+#popupajoutformul form input[type="number"],
+#popupajoutformul form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc; /* Bordure légère */
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Style des boutons du formulaire */
+#popupajoutformul form button {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Vert pour le bouton Enregistrer */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Changer la couleur au survol des boutons */
+#popupajoutformul form button:hover {
+    background-color: #45a049;
+}
+
+/* Style spécifique pour le bouton Suivant */
+#suivantBtnCommand {
+    background-color: #2196F3; /* Bleu pour le bouton Suivant */
+    margin-right: 10px;
+}
+
+#suivantBtnCommand:hover {
+    background-color: #0b7dda;
+}
+
+/* :::::::::::::::::::::::::::::::::::::::: */
+.list-card {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.item-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.left-text {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.center-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.right-icon i {
+    color: darkslateblue;
+    cursor: pointer;
+}
+
+.right-icon i:hover {
+    color: red;
+}
+
+.list-item:last-child {
+    border-bottom: none;
+}
+
+/* ::::::::::::::::::::::: */
+ /* Style pour les popups */
+ .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+/* :::::::::::::::::::::: */

@@ -1,0 +1,180 @@
+/* Menu.css */
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    color: #333;
+}
+
+.menu-header {
+    display: flex;
+    align-items: center; /* Alignement vertical */
+    justify-content: space-between; /* Espacement entre les éléments */
+    padding: 10px 20px; /* Espacement interne */
+    background-color: darkslateblue; /* Couleur de fond de l'en-tête */
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Alignement du texte h1 */
+.menu-header h1 {
+    flex: 1; /* Prend tout l'espace restant */
+    text-align: center; /* Centre le texte */
+    margin: 0; /* Supprime les marges par défaut */
+}
+
+
+
+.header-logo {
+    width: 50px; /* Ajustez la taille du logo */
+    height: auto; /* Maintenir le rapport hauteur/largeur */
+}
+
+.menu-icon {
+    cursor: pointer;
+    font-size: 24px;
+}
+
+@media (min-width: 700px) {
+    .menu-header, .menu-icon {
+        display: none; /* Masquer l'icône sur écrans larges */
+    }
+}
+
+@media (max-width: 700px) {
+
+    /* .menu-header {
+background-color: green;    
+} */
+    /* .menu-container{
+        padding: 5px;
+    } */
+    
+    .menu-icon {
+        font-size: 30px; /* Réduire la taille de l'icône pour petits écrans */
+    }
+    h1{
+      color: #e0e0e0;  
+    }
+}
+
+.menu-content {
+    display: flex;
+    flex: 1;
+}
+
+.menu-aside {
+    background-color: darkslateblue;
+    width: 250px;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+}
+
+.menu-aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-aside li {
+    margin: 15px 0;
+}
+
+.card, .popup-card {
+    display: block;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #f9f9f9; /* Couleur de fond par défaut */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: black; /* Couleur du texte */
+    font-weight: bold;
+    text-align: center; /* Centre le texte */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.selected-card {
+    background-color: red; /* Couleur de fond rouge pour le lien sélectionné */
+    color: white; /* Couleur du texte en blanc pour un bon contraste */
+}
+
+.card:hover, .popup-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.menu-main {
+    flex: 1;
+    padding: 5px;
+    background-color: #f9f9f9;
+}
+
+.menu-main h2 {
+    margin-top: 0;
+}
+
+/* Styles du menu contextuel */
+.popup-menu {
+    position: absolute;
+    top: 60px; 
+    right: 20px; 
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    padding: 10px;
+}
+
+.popup-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.popup-card {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.popup-card:hover {
+    background-color: #e0e0e0; 
+}
+
+/* Media Queries pour la réactivité */
+@media (max-width: 700px) {
+    .menu-aside {
+        display: none; /* Masquer le menu latéral sur petits écrans */
+    }
+}
+
+
+/* ::::::::::::::::: */
+
+.menu-aside ul li a {
+    display: block;
+    /* padding: 10px; */
+    text-decoration: none;
+    color: black; /* Couleur par défaut du texte */
+}
+
+
+/* Classe pour les éléments sélectionnés du menu principal et du popup */
+.menu-aside ul li a.selected,
+.popup-menu ul li a.selected {
+    background-color: red; /* Couleur de fond sélectionnée */
+    color: white; /* Couleur du texte sélectionné */
+}

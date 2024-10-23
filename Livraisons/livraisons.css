@@ -1,0 +1,209 @@
+
+/* Liste des livraisons */
+#livraisons-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+#livraisons-list li {
+    background-color: #fff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Bouton flottant */
+.float-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: darkslateblue;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.float-button:hover {
+    background-color: orangered;
+}
+
+/* Popup Ajouter Livraison::::::::::: */
+.popup {
+    display: none; 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 1000; 
+
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 450px; /* Largeur maximale du popup */
+    text-align: left;
+    animation: slideIn 0.3s; /* Animation d'apparition */
+
+    
+}
+
+.popup h2 {
+    margin: 0 0 15px;
+}
+
+.popup label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.popup input, .popup select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.popup button {
+    margin-top: 15px;
+}
+
+
+/* :::::::::::::::::::: */
+/* Style pour aligner les boutons avec espace entre eux */
+
+/* Style général pour tous les boutons dans le formulaire */
+#livraisonForm button {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Couleur des boutons */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Style spécifique pour le bouton Annuler */
+#livraisonForm #cancelButton { /* Augmentez la spécificité */
+    background-color: red; /* Couleur de fond rouge */
+    color: white; /* Couleur du texte en blanc */
+}
+
+
+
+/* Conteneur pour les boutons */
+.form-buttons {
+    display: flex;
+    justify-content: space-between; /* Espacement égal entre les boutons */
+    gap: 10px; /* Espacement entre les boutons */
+}
+
+.form-buttons button {
+    flex-grow: 1; /* Pour que les boutons prennent la même largeur */
+}
+
+/* :::::::::::::::::::::::::::::: */
+
+
+/* Style pour les boutons dans le popup */
+.popup-content button {
+    padding: 10px 15px; /* Espacement interne */
+    border: none; /* Suppression de la bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur main au survol */
+    margin: 5px 0; /* Espacement vertical entre les boutons */
+}
+
+/* Style pour le conteneur des boutons */
+.button-container {
+    display: flex; /* Utilisation de Flexbox pour les boutons */
+    justify-content: space-between; /* Espacement égal entre les boutons */
+    margin-top: 15px; /* Espacement au-dessus des boutons */
+}
+
+/* Styles des boutons (inchangés) */
+#viewDetailButton {
+    background-color: #4CAF50; /* Couleur verte */
+    color: white; /* Couleur du texte */
+}
+
+#deleteButton {
+    background-color: red; /* Couleur rouge */
+    color: white; /* Couleur du texte */
+}
+
+
+
+#confirmDeleteButton {
+    background-color: #f44336; /* Rouge */
+    color: white; /* Couleur du texte */
+}
+
+#cancelDeleteButton {
+    background-color: #4CAF50; /* Vert */
+    color: white; /* Couleur du texte */
+}
+
+.popup-content button:hover {
+    opacity: 0.9; /* Réduction de l'opacité au survol */
+}
+
+
+
+/* :::::::::::: */
+/* Style pour le fond obscurci */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999; /* S'assurer que cela est au-dessus de tout le contenu */
+    display: none; /* Masquer par défaut */
+}
+
+/* Affiche l'overlay lorsque le popup est ouvert */
+.overlay.active {
+    display: block;
+}
+/* : */
+.close {
+    color: #aaa;
+    float: right; /* À droite */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black; /* Changer la couleur au survol */
+    text-decoration: none;
+    cursor: pointer; /* Curseur pointer */
+}
+
+
+.pagedetail {
+    background-color: red; /* Couleur de fond douce */
+    border-radius: 10px; /* Coins arrondis */
+    padding: 15px; /* Espacement interne */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Légère ombre pour ajouter de la profondeur */
+    margin-bottom: 20px; /* Espacement sous la section */
+    /* position: fixed;
+    width: 100%;
+    top: 10%; */
+}
+
+.pagedetail h2 {
+    color: white; /* Couleur du texte principale */
+    font-size: 1.8em; /* Taille du texte */
+    font-family: 'Arial', sans-serif; /* Police lisible */
+    text-align: center; /* Centrage du titre */
+    margin-bottom: 15px; /* Espacement sous le titre */
+}

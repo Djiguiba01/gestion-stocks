@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../images/sitelogo/favicon.ico"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../Commandes/commandes.css">
+    <title>Menu</title>
+</head>
+<body>
+    <div class="menu-container">
+        <header class="menu-header">
+            <img src="images/logo22.png" alt="Logo" class="header-logo">
+            <h1>Groupe Sankore</h1>
+            <div class="menu-icon" id="menuToggle">&#9776;</div>
+        </header>
+        <div class="menu-content">
+            <aside class="menu-aside" id="menuAside">
+                <ul>
+                    <li><a href="../index.html" class="card" data-path="stock">Stock</a></li>
+                    <li><a href="../Commandes/commandes.html" class="card" data-path="commandes">Commandes</a></li>
+                    <li><a href="../Livraisons/livraisons.html" class="card" data-path="livraisons">Livraisons</a></li>
+                    <li><a href="../Ventes/ventes.html" class="card" data-path="ventes">Ventes</a></li>
+                </ul>
+            </aside>
+            <main class="menu-main" id="mainContent">
+                <div class="stock-card">
+                    <h2>Stock disponible</h2>
+                    <button class="add-product-button" id="ajouteCommandetBtn">Ajouter commande</button>
+                </div>
+
+                <!-- Popup Ajoute -->
+                <div id="popupajoutformul" style=" position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 1000;">
+                    <span id="closePopupBtn" style="position: absolute; top: 10px; right: 10px; cursor: pointer;">
+                        <i class="fas fa-times"></i> 
+                    </span>
+                    
+                    <h2>Ajouter une commande</h2>
+                    <form id="commandeForm">
+                        <div>
+                            <label for="champsFournisseur">Fournisseur:</label>
+                            <input type="text" id="champsFournisseur" name="fournisseur" required>
+                        </div>
+                        <div>
+                            <label for="champsDesignation">Désignation:</label>
+                            <input type="text" id="champsDesignation" name="designation" required>
+                        </div>
+                        <div>
+                            <label for="champsVariete">Variété:</label>
+                            <input type="text" id="champsVariete" name="variete" required>
+                        </div>
+                        <div>
+                            <label for="champsQuantite">Quantité:</label>
+                            <input type="number" id="champsQuantite" name="quantite" required>
+                        </div>
+                        <div>
+                            <label for="champsUnite">Unité:</label>
+                            <select id="champsUnite" name="unite" required>
+                                <option value="">Sélectionnez une unité</option> <!-- Ajoutez une option vide -->
+                                <option value="Gr">Gr</option>
+                                <option value="Kg">Kg</option>
+                                <option value="boîte(s)">Boîte(s)</option>
+                                <option value="Carton(s)">Carton(s)</option>
+                                <option value="Pièce(s)">Pièce(s)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="champsDate">Date de la commande:</label>
+                            <input type="text" id="champsDate" name="date" readonly>
+                        </div>
+                        <div style="margin-top: 20px; display: flex;justify-content: space-between;">
+                            <button type="button" id="suivantBtnCommand">Suivant</button>
+                            <button type="submit" id="enregistrerBtnCommand">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+
+
+                
+                <!-- :::::::::::::::::::::::::::::::::: -->
+                 <!-- Popup pour afficher les options "Voir Détail" et "Supprimer" -->
+<div id="actionPopup" style="">
+    <span id="closePopupAction" style="position: absolute; top: 10px; right: 10px; cursor: pointer;">
+        <i class="fas fa-times"></i>
+    </span>
+    <h2 id="h2actionPopup" >Sélectionnez une option</h2>
+    <div class="poupselection" style="display: flex;justify-content: space-between;">
+        <button id="voirDetailBtn">Voir Détail</button>
+    <button id="supprimerBtn">Supprimer</button>
+    </div>
+</div>
+
+<!-- Popup de confirmation de suppression -->
+<div id="popupConfirmation" style="">
+    <h2 style="color: red; text-align: center;">Confirmation</h2>
+    <!-- <p>Êtes-vous sûr de vouloir supprimer cet élément ?</p> -->
+    
+
+    <div class="poupselection" style="padding-top: 5%; display: flex;justify-content: space-between;">
+        <button id="confirmDeleteBtn">Supprimer</button>
+    <button id="cancelDeleteBtn">Annuler</button>
+    </div>
+</div>
+
+<div class="list-card">
+    <p id="emptyMessage" style="display: none; text-align: center;">Ajouter une commande.</p>
+
+    <ul class="item-list">
+        <!-- Les éléments de la liste seront ajoutés ici -->
+    </ul>
+    
+</div>
+
+                
+                 
+                 
+                
+            </main>
+        </div>
+        <div class="popup-menu" id="popupMenu" style="display: none;">
+            <ul>
+                <li><a href="../index.html" class="popup-card" data-path="stock">Stock</a></li>
+                <li><a href="../Commandes/commandes.html" class="popup-card" data-path="commandes">Commandes</a></li>
+                <li><a href="../Livraisons/livraisons.html" class="popup-card" data-path="livraisons">Livraisons</a></li>
+                <li><a href="../Ventes/ventes.html" class="popup-card" data-path="ventes">Ventes</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="../index.js"></script>
+    <script src="../Commandes/commandes.js"></script>
+    <script>
+        // Fonction pour marquer le menu sélectionné dans les deux menus (principal et popup)
+        function highlightSelectedMenu() {
+            const menuLinks = document.querySelectorAll('.menu-aside ul li a, .popup-menu ul li a');
+            const currentPath = window.location.pathname.split('/').pop(); // Récupère le nom de la page actuelle
+
+            menuLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split('/').pop(); // Récupère le nom de la page du lien
+                if (linkPath === currentPath) {
+                    link.classList.add('selected'); // Ajoute la classe 'selected' si l'URL correspond
+                } else {
+                    link.classList.remove('selected'); // Retire la classe 'selected' si l'URL ne correspond pas
+                }
+            });
+        }
+
+        // Appelle la fonction pour marquer le menu sélectionné
+        highlightSelectedMenu();
+
+        // Code pour afficher/masquer le menu popup
+        const menuToggle = document.getElementById('menuToggle');
+        const popupMenu = document.getElementById('popupMenu');
+
+        menuToggle.addEventListener('click', () => {
+            popupMenu.style.display = popupMenu.style.display === 'none' ? 'block' : 'none';
+        });
+    </script>
+
+</body>
+</html>

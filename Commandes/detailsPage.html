@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'élément</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        /* Styles de base pour la page */
+        body {
+            /* font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center; */
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .details-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 95%;
+            max-width: 95%;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        } */
+
+        /* #backBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        } */
+
+        /* #backBtn:hover {
+            background-color: #45a049;
+        } */
+
+        .button-container {
+            padding-top: 3%;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .uneLigne {
+            background-color: darkslateblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Styles pour le popup */
+        #popupForm, #editPopupForm {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 300px;
+        }
+
+        #popupForm input, #editPopupForm input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #popupForm button, #editPopupForm button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        #popupForm #ajouterBtn, #editPopupForm #updateBtn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        #popupForm #annulerBtn, #editPopupForm #deleteBtn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* :::::::::::::::: */
+        .float-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: darkslateblue;
+            color: white;
+            border: none;
+            border-radius: 5%;
+            padding: 10px 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="details-container">
+        <h1>Détails de l'élément</h1>
+        <div id="detailsContent"></div>
+        <!-- <div class="btn-container">
+            <button id="backBtn">Retour</button>
+        </div> -->
+    </div>
+
+    <div class="button-container">
+        <button class="uneLigne" id="addRowBtn">Ajouter une ligne</button>
+    </div>
+
+    <button class="float-button" id="downloadBtn" style="right: 130px;"><i class="fas fa-download"></i> Télécharger</button> <!-- Bouton flottant avec icône -->
+
+
+    <!-- Popup pour ajouter une ligne -->
+    <div id="overlay"></div>
+    <div id="popupForm">
+        <h3>Ajouter un produit</h3>
+        <input type="text" id="designation" placeholder="Désignation du produit" required>
+        <input type="text" id="variete" placeholder="Variété (facultatif)">
+        <input type="number" id="quantite" placeholder="Quantité" required>
+        <input type="text" id="unite" placeholder="Unité" required>
+        <button id="ajouterBtn">Ajouter</button>
+        <button id="annulerBtn">Annuler</button>
+    </div>
+
+    <!-- Popup pour modifier une ligne -->
+    <div id="editPopupForm">
+        <h3>Modifier le produit</h3>
+        <input type="text" id="editDesignation" placeholder="Désignation du produit" required>
+        <input type="text" id="editVariete" placeholder="Variété (facultatif)">
+        <input type="number" id="editQuantite" placeholder="Quantité" required>
+        <input type="text" id="editUnite" placeholder="Unité" required>
+        <button id="updateBtn">Mettre à jour</button>
+        <button id="deleteBtn">Supprimer</button>
+        <button id="editAnnulerBtn">Annuler</button>
+    </div>
+
+    <script>
+        function getItemIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        }
+
+        function displayItemDetails() {
+            const itemId = getItemIdFromUrl();
+            const finalList = JSON.parse(localStorage.getItem('finalList'));
+
+            if (finalList && itemId) {
+                const selectedItem = finalList[itemId];
+
+                if (selectedItem) {
+                    const detailsContainer = document.getElementById('detailsContent');
+                    detailsContainer.innerHTML = `
+                        <p><strong>Fournisseur:</strong> ${selectedItem.fournisseur}</p>
+                        <p><strong>Date:</strong> ${selectedItem.date}</p>
+                        <p><strong>Détails des produits:</strong></p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                    <th>Variété</th>
+                                    <th>Quantité</th>
+                                    <th>Unité</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${selectedItem.details.map((detail, index) => `
+                                    <tr data-index="${index}">
+                                        <td>${detail.designation}</td>
+                                        <td>${detail.variete || 'N/A'}</td>
+                                        <td>${detail.quantite}</td>
+                                        <td>${detail.unite}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+
+                    // Ajouter un gestionnaire d'événements pour les lignes
+                    const rows = detailsContainer.querySelectorAll('tbody tr');
+                    rows.forEach(row => {
+                        row.addEventListener('click', function() {
+                            const index = this.dataset.index;
+                            openEditPopup(itemId, index);
+                        });
+                    });
+                } else {
+                    alert("Aucun détail trouvé pour cet élément.");
+                }
+            } else {
+                alert("ID d'élément non valide.");
+            }
+        }
+
+        // Fonction pour afficher le popup d'ajout
+        document.getElementById('addRowBtn').addEventListener('click', function() {
+            document.getElementById('popupForm').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        });
+
+        // Fonction pour fermer le popup d'ajout
+        document.getElementById('annulerBtn').addEventListener('click', function() {
+            document.getElementById('popupForm').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        });
+
+        // Fonction pour ajouter une nouvelle ligne au tableau
+        document.getElementById('ajouterBtn').addEventListener('click', function() {
+            const designation = document.getElementById('designation').value;
+            const variete = document.getElementById('variete').value;
+            const quantite = document.getElementById('quantite').value;
+            const unite = document.getElementById('unite').value;
+
+            const itemId = getItemIdFromUrl();
+            const finalList = JSON.parse(localStorage.getItem('finalList'));
+
+            if (finalList && itemId) {
+                const selectedItem = finalList[itemId];
+                selectedItem.details.push({ designation, variete, quantite, unite });
+
+                localStorage.setItem('finalList', JSON.stringify(finalList));
+                alert("Produit ajouté avec succès.");
+                displayItemDetails();
+                document.getElementById('popupForm').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+            }
+        });
+
+        // Fonction pour ouvrir le popup d'édition
+        function openEditPopup(itemId, index) {
+            const finalList = JSON.parse(localStorage.getItem('finalList'));
+            const selectedItem = finalList[itemId];
+
+            if (selectedItem) {
+                const detailToEdit = selectedItem.details[index];
+                document.getElementById('editDesignation').value = detailToEdit.designation;
+                document.getElementById('editVariete').value = detailToEdit.variete || '';
+                document.getElementById('editQuantite').value = detailToEdit.quantite;
+                document.getElementById('editUnite').value = detailToEdit.unite;
+
+                // Affiche le popup d'édition
+                document.getElementById('editPopupForm').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+
+                // Mettre à jour le produit
+                document.getElementById('updateBtn').onclick = function() {
+                    detailToEdit.designation = document.getElementById('editDesignation').value;
+                    detailToEdit.variete = document.getElementById('editVariete').value;
+                    detailToEdit.quantite = document.getElementById('editQuantite').value;
+                    detailToEdit.unite = document.getElementById('editUnite').value;
+
+                    localStorage.setItem('finalList', JSON.stringify(finalList));
+                    alert("Produit mis à jour avec succès.");
+                    displayItemDetails();
+                    closeEditPopup();
+                };
+
+                // Supprimer le produit
+                document.getElementById('deleteBtn').onclick = function() {
+                    selectedItem.details.splice(index, 1);
+                    localStorage.setItem('finalList', JSON.stringify(finalList));
+                    alert("Produit supprimé avec succès.");
+                    displayItemDetails();
+                    closeEditPopup();
+                };
+
+                // Fermer le popup d'édition
+                document.getElementById('editAnnulerBtn').onclick = closeEditPopup;
+            }
+        }
+
+        function closeEditPopup() {
+            document.getElementById('editPopupForm').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // Retour au tableau principal
+        // document.getElementById('backBtn').addEventListener('click', function() {
+        //     window.location.href = "votre_page_principale.html"; // Remplacez par l'URL de votre page principale
+        // });
+
+        // Affichez les détails de l'élément lors du chargement de la page
+        displayItemDetails();
+
+
+
+        // :::::::::::::::::::::::::::::::::::
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Ajouter un titre au PDF
+            doc.text("Détails de la Livraison", 10, 10);
+
+            // Récupérer les informations de la livraison
+            const destination = document.getElementById('destination').textContent;
+            const date = document.getElementById('date').textContent;
+            doc.text(destination, 10, 20);
+            doc.text(date, 10, 30);
+
+            // En-têtes du tableau
+            const headers = ["Désignation", "Variété", "Quantité", "Unité"];
+            const rows = [];
+
+            // Récupérer les données du tableau HTML
+            const rowsHTML = document.querySelectorAll('#details tbody tr');
+            rowsHTML.forEach(row => {
+                const rowData = [];
+                row.querySelectorAll('td').forEach(cell => rowData.push(cell.textContent));
+                rows.push(rowData);
+            });
+
+            // Générer le tableau dans le PDF
+            doc.autoTable({
+                head: [headers],
+                body: rows,
+                startY: 40
+            });
+
+            // Nommer le fichier PDF
+            const pdfFileName = `livraison_${destination.split(':')[1].trim()}.pdf`;
+
+            // Télécharger le PDF
+            doc.save(pdfFileName);
+        });
+       
+        
+    </script>
+</body>
+</html>

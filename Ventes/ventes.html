@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../images/sitelogo/favicon.ico"> 
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="./ventes.css">
+    <title>Menu</title>
+</head>
+<body>
+    <div class="menu-container">
+        <header class="menu-header">
+            <img src="images/logo22.png" alt="Logo" class="header-logo">
+            <h1>Groupe Sankore</h1>
+            <div class="menu-icon" id="menuToggle">&#9776;</div>
+        </header>
+        <div class="menu-content">
+            <aside class="menu-aside" id="menuAside">
+                <ul>
+                    <li><a href="../index.html" class="card" data-path="stock">Stock</a></li>
+                    <li><a href="../Commandes/commandes.html" class="card" data-path="commandes">Commandes</a></li>
+                    <li><a href="../Livraisons/livraisons.html" class="card" data-path="livraisons">Livraisons</a></li>
+                    <li><a href="../Ventes/ventes.html" class="card" data-path="ventes">Ventes</a></li>
+                </ul>
+            </aside>
+            <main class="menu-main" id="mainContent">
+                <!-- <h2 style="text-align: center;">Contenu Ventes vide !!!!!!!!!!!!!</h2> -->
+               
+                <!-- Popup pour Ajouter un produit -->
+                <div class="popup" id="productPopup" style="display: none;">
+                    <div class="popup-content">
+                        <span class="close" id="closePopup">&times;</span>
+                        <h2 style="text-align: center;color: green;">Ajouter un Produit</h2>
+                        <label for="designation">Désignation:</label>
+                        <input type="text" id="designation" required>
+                        
+                        <label for="quantite">Quantité:</label>
+                        <input type="number" id="quantite" required>
+                        
+                        <label for="prix">Prix:</label>
+                        <input type="number" id="prix" required>
+                        
+                        <label for="unite">Unité:</label>
+                        <select id="unite" required>
+                            <option value="gr">gr</option>
+                            <option value="kg">kg</option>
+                            <option value="boît(s)">boît(s)</option>
+                            <option value="pièce(s)">pièce(s)</option>
+                        </select>
+                        
+                        <button id="submitProduct"  style="background-color: green; margin-left: 35%; margin-right: 35%; width: 30%; margin-top: 20px;">Ajouter</button>
+                    </div>
+                </div>
+
+                <!-- Popup pour modifier un produit -->
+                <div class="popup" id="modifyPopup" style="display: none;">
+                    <div class="popup-content">
+                        <span class="close" id="closeModifyPopup">&times;</span>
+                        <h2 style="text-align: center;color: green;">Modifier le Produit</h2>
+                        <label for="modifyDesignation">Désignation:</label>
+                        <input type="text" id="modifyDesignation" required>
+                        
+                        <label for="modifyQuantite">Quantité:</label>
+                        <input type="number" id="modifyQuantite" required>
+                        
+                        <label for="modifyPrix">Prix:</label>
+                        <input type="number" id="modifyPrix" required>
+                        
+                        <label for="modifyUnite">Unité:</label>
+                        <select id="modifyUnite" required>
+                            <option value="gr">gr</option>
+                            <option value="kg">kg</option>
+                            <option value="boît(s)">boît(s)</option>
+                            <option value="pièce(s)">pièce(s)</option>
+                        </select>
+                        
+                        <button id="submitModify"  style=" background-color: green;margin-left: 35%; margin-right: 35%; width: 30%; margin-top: 20px;">Modifier</button>
+                    </div>
+                </div>
+
+               <!-- Popup pour Ajouter une Vente -->
+<div id="ventePopup" class="popup">
+    <span class="close" id="closeVentePopup">&times;</span>
+
+    <h2 style="text-align: center;color: green;">Ajouter une Vente</h2>
+    <label for="venteDesignation">Désignation</label>
+    <input type="text" id="venteDesignation"><br>
+    <label for="venteQuantite">Quantité</label>
+    <input type="number" id="venteQuantite"><br>
+    <label for="ventePrix">Prix</label>
+    <input type="number" id="ventePrix"><br>
+
+
+    <label for="venteUnite">Unité:</label>
+                        <select id="venteUnite" required>
+                            <option value="gr">gr</option>
+                            <option value="kg">kg</option>
+                            <option value="boît(s)">boît(s)</option>
+                            <option value="pièce(s)">pièce(s)</option>
+                        </select>
+    <button id="submitVente" style=" background-color: green; margin-left: 35%; margin-right: 35%; width: 30%; margin-top: 20px;">Ajouter</button>
+    <!-- <button id="closeVentePopup">Fermer</button> -->
+</div>
+
+<!-- Popup pour Modifier une Vente -->
+<div id="editVentePopup" class="popup">
+    <span class="close" id="closeEditPopup">&times;</span>
+
+    <h2 style="text-align: center;color: green;">Modifier la Vente</h2>
+    <label for="editDesignation">Désignation</label>
+    <input type="text" id="editDesignation"><br>
+    <label for="editQuantite">Quantité</label>
+    <input type="number" id="editQuantite"><br>
+    <label for="editPrix">Prix</label>
+    <input type="number" id="editPrix"><br>
+    <label for="editUnite">Unité</label>
+    <input type="text" id="editUnite"><br>
+    <button id="saveChanges" style="background-color: green; margin-left: 35%; margin-right: 35%; width: 30%; margin-top: 20px;">Enregistrer</button>
+    <!-- <button id="closeEditPopup">Fermer</button> -->
+</div>
+
+                
+
+
+
+                <div class="container">
+                    <div class="left-section">
+                       <div class="ajoutpop" style="display: flex;justify-content: space-between; padding-bottom: 10px;">
+                        <div class="textpop" >
+                            <h2>Le prix des produits</h2>
+                        </div>
+                        <!-- Bouton pour ajouter un produit -->
+               <button id="addProductButton" style="font-weight: bold;">AJOUTER</button>
+
+                       </div>
+                        <div id="productList"></div> <!-- Container for product cards -->
+                        <p id="noProductsMessage" style="display: none; text-align: center;">Aucun produit ajouté.</p>
+                    </div>
+            
+                    <div class="right-section">
+                        <div class="ajoutpopvent" style="display: flex; justify-content: space-between; padding-bottom: 10px;">
+                            <div class="textpop" >
+                                <h2>La liste des ventes</h2>
+                            </div>
+                            <!-- Bouton pour ajouter un produit -->
+                          <button id="addVentButton" style="font-weight: bold;">AJOUTER</button>
+    
+                           </div>
+                           <div id="venteList"></div>
+                           <div id="noVentesMessage" style="display: none; text-align: center;">Aucune vente à afficher.</div>
+
+                           <!-- <div class="product-cardvente">
+                            <div class="product-info">
+                                <span><strong>Désignation:</strong> Produit C</span>
+                                <span><strong>Quantité:</strong> 8</span>
+                                <span><strong>Prix:</strong> 8€</span>
+                            </div>
+                            <div class="modify-icon">✏️</div>
+                        </div> -->
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div class="popup-menu" id="popupMenu" style="display: none;">
+            <ul>
+                <li><a href="../index.html" class="popup-card" data-path="stock">Stock</a></li>
+                <li><a href="../Commandes/commandes.html" class="popup-card" data-path="commandes">Commandes</a></li>
+                <li><a href="../Livraisons/livraisons.html" class="popup-card" data-path="livraisons">Livraisons</a></li>
+                <li><a href="../Ventes/ventes.html" class="popup-card" data-path="ventes">Ventes</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="../index.js"></script>
+    <script src="../Ventes/ventes.js"></script>
+    <script>
+
+        // :::::::::::::::::::::::::::::::::::::::::::
+        
+
+        // ::::::::::::::::FONCTION AJOUTER VENTE:::::::::::::::::::::::::::::::
+        const addVenteButton = document.getElementById('addVentButton');
+const ventePopup = document.getElementById('ventePopup');
+const submitVente = document.getElementById('submitVente');
+const venteList = document.getElementById('venteList');
+const noVentesMessage = document.getElementById('noVentesMessage');
+
+// Fonction pour afficher le popup d'ajout
+addVenteButton.addEventListener('click', () => {
+    ventePopup.style.display = 'block';
+});
+
+// Fermer le popup d'ajout
+document.getElementById('closeVentePopup').addEventListener('click', () => {
+    ventePopup.style.display = 'none';
+});
+
+// Ajouter une nouvelle vente
+submitVente.addEventListener('click', () => {
+    const designation = document.getElementById('venteDesignation').value;
+    const quantite = document.getElementById('venteQuantite').value;
+    const prix = document.getElementById('ventePrix').value;
+    const unite = document.getElementById('venteUnite').value;
+
+    if (designation && quantite && prix && unite) {
+        const vente = { designation, quantite, prix, unite };
+        addVenteToList(vente, getVentesFromLocalStorage().length);
+        saveVenteToLocalStorage(vente);
+        ventePopup.style.display = 'none';
+        clearVenteFields(); // Efface les champs
+    }
+});
+
+function clearVenteFields() {
+    document.getElementById('venteDesignation').value = '';
+    document.getElementById('venteQuantite').value = '';
+    document.getElementById('ventePrix').value = '';
+    document.getElementById('venteUnite').value = '';
+}
+
+// Fonction pour ajouter la vente dans la liste
+function addVenteToList(vente, index) {
+    const venteCard = document.createElement('div');
+    venteCard.className = 'product-card-vente';
+    venteCard.innerHTML = `
+        <div class="product-info">
+            <span><strong>Désignation:</strong> ${vente.designation}</span>
+            <span><strong>Quantité:</strong> ${vente.quantite}</span>
+            <span><strong>Prix:</strong> ${vente.prix}€</span>
+            <span><strong>Unité:</strong> ${vente.unite}</span>
+        </div>
+        <button class="edit-button" data-index="${index}">Modifier</button>
+    `;
+    venteList.appendChild(venteCard);
+
+    // Ajouter l'événement "Modifier" au bouton
+    venteCard.querySelector('.edit-button').addEventListener('click', () => {
+        openEditPopup(index);
+    });
+}
+
+function openEditPopup(index) {
+    const ventes = getVentesFromLocalStorage();
+    const vente = ventes[index];
+
+    // Remplir le popup de modification avec les valeurs actuelles
+    document.getElementById('editDesignation').value = vente.designation;
+    document.getElementById('editQuantite').value = vente.quantite;
+    document.getElementById('editPrix').value = vente.prix;
+    document.getElementById('editUnite').value = vente.unite;
+
+    // Afficher le popup de modification
+    document.getElementById('editVentePopup').style.display = 'block';
+
+    // Sauvegarder les modifications
+    document.getElementById('saveChanges').onclick = function() {
+        saveChanges(index);
+    };
+}
+
+function saveChanges(index) {
+    const ventes = getVentesFromLocalStorage();
+
+    // Mettre à jour les informations de la vente
+    ventes[index].designation = document.getElementById('editDesignation').value;
+    ventes[index].quantite = document.getElementById('editQuantite').value;
+    ventes[index].prix = document.getElementById('editPrix').value;
+    ventes[index].unite = document.getElementById('editUnite').value;
+
+    // Enregistrer les ventes mises à jour dans localStorage
+    localStorage.setItem('ventes', JSON.stringify(ventes));
+
+    // Fermer le popup de modification
+    document.getElementById('editVentePopup').style.display = 'none';
+
+    // Mettre à jour la liste des ventes
+    updateVentesFromLocalStorage();
+}
+
+// Fermer le popup de modification
+document.getElementById('closeEditPopup').addEventListener('click', () => {
+    document.getElementById('editVentePopup').style.display = 'none';
+});
+
+function updateNoVentesMessage() {
+    const ventes = getVentesFromLocalStorage();
+    if (ventes.length === 0) {
+        noVentesMessage.style.display = 'block';
+    } else {
+        noVentesMessage.style.display = 'none';
+    }
+}
+
+// Enregistrer la vente dans localStorage
+function saveVenteToLocalStorage(vente) {
+    const ventes = getVentesFromLocalStorage();
+    ventes.push(vente);
+    localStorage.setItem('ventes', JSON.stringify(ventes));
+    updateVentesFromLocalStorage();
+}
+
+// Obtenir les ventes de localStorage
+function getVentesFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('ventes')) || [];
+}
+
+// Mettre à jour la liste des ventes à partir de localStorage
+function updateVentesFromLocalStorage() {
+    const ventes = getVentesFromLocalStorage();
+    venteList.innerHTML = ''; // Vider la liste actuelle
+    ventes.forEach((vente, index) => addVenteToList(vente, index)); // Réajouter depuis localStorage
+    updateNoVentesMessage();
+}
+
+// Charger les ventes initialement à partir de localStorage
+window.onload = updateVentesFromLocalStorage;
+
+        // :::::::::::::::::::::::::::::::::::::::::::
+        let currentProductIndex = null; // Pour stocker l'index du produit à modifier
+
+        // Fonction pour marquer le menu sélectionné
+        function highlightSelectedMenu() {
+            const menuLinks = document.querySelectorAll('.menu-aside ul li a, .popup-menu ul li a');
+            const currentPath = window.location.pathname.split('/').pop();
+
+            menuLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split('/').pop();
+                if (linkPath === currentPath) {
+                    link.classList.add('selected');
+                } else {
+                    link.classList.remove('selected');
+                }
+            });
+        }
+
+        highlightSelectedMenu();
+
+        const menuToggle = document.getElementById('menuToggle');
+        const popupMenu = document.getElementById('popupMenu');
+
+        menuToggle.addEventListener('click', () => {
+            popupMenu.style.display = popupMenu.style.display === 'none' ? 'block' : 'none';
+        });
+
+        const addProductButton = document.getElementById('addProductButton');
+        const productPopup = document.getElementById('productPopup');
+        const closePopup = document.getElementById('closePopup');
+        const submitProduct = document.getElementById('submitProduct');
+        const productList = document.getElementById('productList');
+        const noProductsMessage = document.getElementById('noProductsMessage');
+
+        const modifyPopup = document.getElementById('modifyPopup');
+        const closeModifyPopup = document.getElementById('closeModifyPopup');
+        const submitModify = document.getElementById('submitModify');
+
+        addProductButton.addEventListener('click', () => {
+            productPopup.style.display = 'block';
+        });
+
+        closePopup.addEventListener('click', () => {
+            productPopup.style.display = 'none';
+        });
+
+        closeModifyPopup.addEventListener('click', () => {
+            modifyPopup.style.display = 'none';
+        });
+
+        
+
+        submitProduct.addEventListener('click', () => {
+            const designation = document.getElementById('designation').value;
+            const quantite = document.getElementById('quantite').value;
+            const prix = document.getElementById('prix').value;
+            const unite = document.getElementById('unite').value;
+
+            if (designation && quantite && prix && unite) {
+                const product = {
+                    designation,
+                    quantite,
+                    prix,
+                    unite
+                };
+
+                addProductToList(product);
+                saveProductToLocalStorage(product);
+                productPopup.style.display = 'none';
+            }
+        });
+
+        function addProductToList(product) {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                <div class="product-info">
+                    <span><strong>Désignation:</strong> ${product.designation}</span>
+                    <span><strong>Quantité:</strong> ${product.quantite}</span>
+                    <span><strong>Prix:</strong> ${product.prix}</span>
+                    <span><strong>Unité:</strong> ${product.unite}</span>
+                </div>
+                <div class="product-actions" >
+                    <span class="modify-icon" >&#9998;</span>
+                </div>
+            `;
+
+            const modifyIcon = productCard.querySelector('.modify-icon');
+            modifyIcon.addEventListener('click', () => openModifyPopup(product));
+
+            productList.appendChild(productCard);
+            updateNoProductsMessage();
+        }
+
+        function openModifyPopup(product) {
+            currentProductIndex = getProductIndex(product);
+
+            document.getElementById('modifyDesignation').value = product.designation;
+            document.getElementById('modifyQuantite').value = product.quantite;
+            document.getElementById('modifyPrix').value = product.prix;
+            document.getElementById('modifyUnite').value = product.unite;
+
+            modifyPopup.style.display = 'block';
+        }
+
+        submitModify.addEventListener('click', () => {
+            const designation = document.getElementById('modifyDesignation').value;
+            const quantite = document.getElementById('modifyQuantite').value;
+            const prix = document.getElementById('modifyPrix').value;
+            const unite = document.getElementById('modifyUnite').value;
+
+            if (designation && quantite && prix && unite) {
+                const updatedProduct = {
+                    designation,
+                    quantite,
+                    prix,
+                    unite
+                };
+
+                modifyProductInList(updatedProduct);
+                modifyProductInLocalStorage(updatedProduct);
+                modifyPopup.style.display = 'none';
+            }
+        });
+
+        function modifyProductInList(product) {
+            const productCards = document.querySelectorAll('.product-card');
+            const productCard = productCards[currentProductIndex];
+
+            productCard.querySelector('.product-info').innerHTML = `
+                <span><strong>Désignation:</strong> ${product.designation}</span>
+                <span><strong>Quantité:</strong> ${product.quantite}</span>
+                <span><strong>Prix:</strong> ${product.prix}</span>
+                <span><strong>Unité:</strong> ${product.unite}</span>
+            `;
+        }
+
+        function modifyProductInLocalStorage(product) {
+            const products = getProductsFromLocalStorage();
+            products[currentProductIndex] = product;
+            localStorage.setItem('products', JSON.stringify(products));
+        }
+
+        function saveProductToLocalStorage(product) {
+            const products = getProductsFromLocalStorage();
+            products.push(product);
+            localStorage.setItem('products', JSON.stringify(products));
+        }
+
+        function getProductsFromLocalStorage() {
+            return JSON.parse(localStorage.getItem('products')) || [];
+        }
+
+        function getProductIndex(product) {
+            const products = getProductsFromLocalStorage();
+            return products.findIndex(p => p.designation === product.designation && p.quantite === product.quantite);
+        }
+
+        function updateNoProductsMessage() {
+            const products = getProductsFromLocalStorage();
+            if (products.length === 0) {
+                noProductsMessage.style.display = 'block';
+            } else {
+                noProductsMessage.style.display = 'none';
+            }
+        }
+
+        function loadProducts() {
+            const products = getProductsFromLocalStorage();
+            products.forEach(product => addProductToList(product));
+        }
+
+        loadProducts();
+
+        
+    </script>
+</body>
+</html>

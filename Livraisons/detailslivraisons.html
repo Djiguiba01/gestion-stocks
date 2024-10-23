@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Livraison</title>
+    <link rel="icon" type="image/x-icon" href="../images/sitelogo/favicon.ico"> <!-- Remplacez le chemin par celui de votre image -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Inclure Font Awesome -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .details {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            overflow-x: auto; /* Pour faire défiler le tableau si nécessaire */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .float-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: darkslateblue;
+            color: white;
+            border: none;
+            border-radius: 5%;
+            padding: 10px 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* Style pour le pop-up */
+      /* Style pour le modal */
+.modal {
+    display: none; /* Masquer par défaut */
+    position: fixed; /* Rester en place */
+    z-index: 1; /* Au-dessus de tout */
+    left: 0;
+    top: 0;
+    width: 100%; /* Plein écran */
+    height: 100%; /* Plein écran */
+    overflow: auto; /* Ajouter un défilement si nécessaire */
+    background-color: rgba(0, 0, 0, 0.5); /* Couleur de fond avec transparence */
+}
+
+/* Contenu du modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Centre le modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Largeur du modal */
+    max-width: 500px; /* Largeur maximum */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre */
+}
+
+/* Style pour le bouton de fermeture */
+.close {
+    color: #aaa;
+    float: right; /* À droite */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black; /* Changer la couleur au survol */
+    text-decoration: none;
+    cursor: pointer; /* Curseur pointer */
+}
+.buttoncontainerligne {
+    display: flex; /* Disposition horizontale pour les boutons */
+    justify-content: space-between; /* Espacement égal entre les boutons */
+    margin-top: 20px; /* Espacement au-dessus des boutons */
+}
+/* Style pour les labels et inputs */
+label {
+    display: block; /* Afficher en bloc */
+    margin: 10px 0 5px; /* Marges */
+    font-weight: bold; /* Gras */
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%; /* Pleine largeur */
+    padding: 10px; /* Espacement intérieur */
+    margin: 5px 0 15px; /* Marges */
+    border: 1px solid #ccc; /* Bordure */
+    border-radius: 4px; /* Coins arrondis */
+    box-sizing: border-box; /* Inclure les bordures et le padding dans la largeur totale */
+}
+
+/* Style pour les boutons */
+button {
+    background-color: #4CAF50; /* Vert */
+    color: white; /* Texte blanc */
+    padding: 10px 15px; /* Espacement */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer; /* Curseur pointer */
+    margin-right: 10px; /* Espacement entre les boutons */
+}
+
+button:hover {
+    background-color: #45a049; /* Couleur plus sombre au survol */
+}
+
+#deleteItemBtn {
+    background-color: #f44336; /* Rouge */
+}
+
+#deleteItemBtn:hover {
+    background-color: #d32f2f; /* Couleur plus sombre au survol */
+}
+
+
+        /* Style pour le bouton avec la classe uneLigne */
+
+        .button-container {
+            padding-top: 3%;
+    display: flex; /* Utiliser Flexbox */
+    justify-content: flex-end; /* Aligner le bouton à droite */
+    margin-bottom: 20px; /* Optionnel : espace en bas du conteneur */
+}
+
+.uneLigne {
+    background-color: darkslateblue; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 10px 15px;    font-size: 16px; /* Taille de la police */
+    cursor: pointer; /* Curseur de la souris */
+    transition: background-color 0.3s; /* Animation pour le changement de couleur */
+}
+
+
+
+.uneLigne i {
+    margin-right: 5px; /* Espacement à droite de l'icône */
+}
+.popuptext{
+    text-align: center;
+    color: darkblue;
+}
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <h1>Détails de la Livraison</h1>
+    <div id="detailsContainer" class="details"></div>
+    <div class="button-container">
+        <button class="uneLigne" id="addRowBtn">
+            <!-- <i class="fas fa-plus"></i> -->
+             Ajouter une ligne
+             
+        </button>
+    </div>
+        <button class="float-button" id="downloadBtn" style="right: 130px;"><i class="fas fa-download"></i> Télécharger</button> <!-- Bouton flottant avec icône -->
+
+    <!-- Modale pour afficher les détails de l'article -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="popuptext">
+                <h2>MODIFIER CETTE LIGNE</h2>
+            </div>
+            <label for="designation">Désignation:</label>
+            <input type="text" id="designation" />
+            <label for="variete">Variété:</label>
+            <input type="text" id="variete" />
+            <label for="quantite">Quantité:</label>
+            <input type="number" id="quantite" />
+            <label for="unite">Unité:</label>
+            <select id="unite" name="unite" required>
+                <option value="gr">gr</option>
+                <option value="kg">kg</option>
+                <option value="boîte(s)">boîte(s)</option>
+                <option value="pièce(s)">pièce(s)</option>
+            </select>
+            <div class="buttoncontainerligne"> <!-- Conteneur pour les boutons -->
+                <button id="saveChangesBtn">Modifier</button>
+                <button id="deleteItemBtn">Supprimer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale pour ajouter une nouvelle ligne -->
+    <div id="addRowModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddRowModal()" style="display: none;">&times;</span>
+            
+            <div class="popuptext">
+                <h2>AJOUTER UNE LIGNE</h2>
+            </div>
+            <label for="newDesignation">Désignation:</label>
+            <input type="text" id="newDesignation" />
+            <label for="newVariete">Variété:</label>
+            <input type="text" id="newVariete" />
+            <label for="newQuantite">Quantité:</label>
+            <input type="number" id="newQuantite" />
+            <label for="newUnite">Unité:</label>
+            <select id="newUnite" name="newUnite" required>
+                <option value="gr">gr</option>
+                <option value="kg">kg</option>
+                <option value="boîte(s)">boîte(s)</option>
+                <option value="pièce(s)">pièce(s)</option>
+            </select>
+            <div class="toutboutons" style="display: flex;justify-content: space-between; padding: 10px;">
+                <button id="addRowBtnModal">Ajouter</button>
+            <button  onclick="closeAddRowModal()" style="background-color: red;">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const destinationId = urlParams.get('id');
+        const livraisons = JSON.parse(localStorage.getItem('livraisons')) || []; // Récupérer les livraisons
+        const detailsContainer = document.getElementById('detailsContainer');
+        const modal = document.getElementById("myModal");
+        const closeModal = document.getElementsByClassName("close")[0];
+        const addRowModal = document.getElementById("addRowModal");
+
+        // Afficher les détails de la livraison
+        function displayDetails() {
+            const livraison = livraisons.find(l => l.destination === destinationId);
+            if (livraison) {
+                let detailsHTML = `<h2>Destination: ${livraison.destination}</h2>`;
+                detailsHTML += `<p>Date: ${livraison.date}</p>`;
+                detailsHTML += `<table>`;
+                detailsHTML += `<tr>
+                                    <th>Désignation</th>
+                                    <th>Variété</th>
+                                    <th>Quantité</th>
+                                    <th>Unité</th>
+                                </tr>`;
+                livraison.articles.forEach((article, index) => {
+                    detailsHTML += `<tr data-index="${index}">
+                                        <td>${article.designation}</td>
+                                        <td>${article.variete}</td>
+                                        <td>${article.quantite}</td>
+                                        <td>${article.unite}</td>
+                                    </tr>`;
+                });
+                detailsHTML += `</table>`;
+                detailsContainer.innerHTML = detailsHTML;
+
+                // Ajouter un événement de clic sur chaque ligne du tableau
+                const rows = detailsContainer.getElementsByTagName('tr');
+                for (let i = 1; i < rows.length; i++) { // Commencer à 1 pour ignorer l'en-tête
+                    rows[i].addEventListener('click', function() {
+                        openModal(i - 1); // Passer l'index de l'article
+                    });
+                }
+            } else {
+                detailsContainer.innerHTML = `<p>Aucun détail trouvé pour cette livraison.</p>`;
+            }
+        }
+
+        // Ouvrir la modale et préremplir les champs
+        function openModal(index) {
+            const livraison = livraisons.find(l => l.destination === destinationId);
+            const article = livraison.articles[index];
+
+            document.getElementById('designation').value = article.designation;
+            document.getElementById('variete').value = article.variete;
+            document.getElementById('quantite').value = article.quantite;
+            document.getElementById('unite').value = article.unite;
+
+            modal.style.display = "block";
+
+            // Écouteur pour sauvegarder les modifications
+            document.getElementById('saveChangesBtn').onclick = function() {
+                saveChanges(index);
+            };
+
+            // Écouteur pour supprimer l'article
+            document.getElementById('deleteItemBtn').onclick = function() {
+                deleteItem(index);
+            };
+        }
+
+        // Sauvegarder les modifications
+        function saveChanges(index) {
+            const livraison = livraisons.find(l => l.destination === destinationId);
+            livraison.articles[index].designation = document.getElementById('designation').value;
+            livraison.articles[index].variete = document.getElementById('variete').value;
+            livraison.articles[index].quantite = document.getElementById('quantite').value;
+            livraison.articles[index].unite = document.getElementById('unite').value;
+
+            localStorage.setItem('livraisons', JSON.stringify(livraisons));
+            modal.style.display = "none"; // Fermer la modale
+            displayDetails(); // Rafraîchir l'affichage
+        }
+
+        // Supprimer un article
+        function deleteItem(index) {
+            const livraison = livraisons.find(l => l.destination === destinationId);
+            livraison.articles.splice(index, 1); // Supprimer l'article à l'index
+            localStorage.setItem('livraisons', JSON.stringify(livraisons));
+            modal.style.display = "none"; // Fermer la modale
+            displayDetails(); // Rafraîchir l'affichage
+        }
+
+       
+        // Ouvrir la modale pour ajouter une nouvelle ligne
+        document.getElementById('addRowBtn').addEventListener('click', function() {
+            openAddRowModal();
+        });
+
+        // Fonction pour ouvrir la modale d'ajout de ligne
+        function openAddRowModal() {
+            addRowModal.style.display = "block";
+        }
+
+        // Fermer la modale d'ajout de ligne
+        function closeAddRowModal() {
+            addRowModal.style.display = "none";
+        }
+
+        // Ajouter une nouvelle ligne
+        document.getElementById('addRowBtnModal').addEventListener('click', function() {
+            const newDesignation = document.getElementById('newDesignation').value;
+            const newVariete = document.getElementById('newVariete').value;
+            const newQuantite = document.getElementById('newQuantite').value;
+            const newUnite = document.getElementById('newUnite').value;
+
+            if (newDesignation && newQuantite) {
+                const livraison = livraisons.find(l => l.destination === destinationId);
+                livraison.articles.push({
+                    designation: newDesignation,
+                    variete: newVariete,
+                    quantite: newQuantite,
+                    unite: newUnite
+                });
+                localStorage.setItem('livraisons', JSON.stringify(livraisons));
+                closeAddRowModal(); // Fermer la modale
+                displayDetails(); // Rafraîchir l'affichage
+            } else {
+                alert('Veuillez remplir tous les champs obligatoires.');
+            }
+        });
+
+        // Fermer la modale au clic sur la croix
+        closeModal.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        // Fermer la modale d'ajout de ligne au clic sur la croix
+        addRowModal.getElementsByClassName("close")[0].onclick = function() {
+            closeAddRowModal();
+        };
+        
+
+        // Afficher les détails dès le chargement de la page
+        displayDetails();
+
+
+        
+        // Fonction pour télécharger le contenu sous forme de PDF
+        async function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Titre
+            doc.text("Détails de la Livraison", 10, 10);
+            const livraison = livraisons.find(l => l.destination === destinationId);
+            
+            // Vérifier si la livraison existe
+            if (livraison) {
+                doc.text(`Destination: ${livraison.destination}`, 10, 20);
+                doc.text(`Date: ${livraison.date}`, 10, 30);
+                // doc.text("Articles:", 10, 40);
+                
+                // En-tête du tableau
+                const headers = ["Désignation", "Variété", "Quantité", "Unité"];
+                const rows = livraison.articles.map(article => [article.designation, article.variete, article.quantite, article.unite]);
+                
+                // Ajouter le tableau
+                doc.autoTable({
+                    head: [headers],
+                    body: rows,
+                    startY: 40,
+                });
+            } else {
+                doc.text("Aucun détail trouvé pour cette livraison.", 10, 20);
+            }
+
+            // Définir le nom du fichier PDF
+            const pdfFileName = `livraison_${livraison.destination}.pdf`;
+
+            // Sauvegarder le PDF avec le nom dynamique
+            doc.save(pdfFileName);
+        }
+
+        // Écouteur d'événements pour le bouton de téléchargement
+        document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+
+
+/* ::::Pour rendre la page responsive et adaptée aux téléphones, nous allons ajouter des media queries:::: */
+.container {
+    display: flex;
+    /* height: 100%; */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.left-section, .right-section {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    height: 100%;
+}
+
+.left-section {
+    margin-right: 20px;
+    background-color: #f9f9f9;
+}
+
+.right-section {
+    background-color: #f2f2f2;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .left-section {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+   
+
+    .left-section, .right-section {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+   
+}
+
+/* ::::::::::::::: */
+/* Styles pour les cartes de produit */
+.product-card, .product-card-vente {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-info span {
+    margin-bottom: 5px;
+}
+
+.modify-icon {
+    font-size: 25px;
+    color: green;
+    cursor: pointer;
+}
+
+
+/* :::::::::: */
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.no-products-message {
+    display: none; /* Masquer par défaut */
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+}
+/* Styles pour le pop-up */
+
+
+/* Contenu du popup */
+
+
+/* Bouton de fermeture */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    
+}
+
+/* Style des champs d'entrée */
+input[type="text"],
+input[type="number"] ,#unite,#modifyUnite,#venteUnite{
+    width: 95%; /* Largeur complète */
+    padding: 10px; /* Espacement intérieur */
+    margin: 8px 0; /* Espacement autour */
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 4px; /* Coins arrondis */
+}
+
+/* Style des messages d'erreur */
+.error-message {
+    color: red; /* Couleur rouge pour les messages d'erreur */
+    font-size: 0.9em; /* Taille de police légèrement plus petite */
+    margin-top: -5px; /* Écarte le message du champ */
+    margin-bottom: 10px; /* Espace en bas */
+}
+
+/* Style du bouton d'enregistrement */
+button {
+    background-color: #4CAF50; /* Couleur de fond verte */
+    color: white; /* Couleur du texte blanche */
+    padding: 10px 15px; /* Espacement intérieur */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer; /* Curseur de main au survol */
+}
+
+button:hover {
+    background-color: #45a049; /* Couleur plus sombre au survol */
+}
+
+
+
+
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+    font-size: 2em;
+}
+
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.popup h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.popup label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 1em;
+    color: #555;
+}
+
+.popup input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.popup button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.popup button:last-child {
+    background-color: red;
+}
+
+.popup button:hover {
+    opacity: 0.9;
+}
+
+.product-card-vente {
+    padding: 15px;
+    border: 1px solid #ccc;
+    margin: 15px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-info span {
+    margin-bottom: 5px;
+    font-size: 1em;
+    color: #333;
+}
+
+.product-card-vente button {
+    background-color: green;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.product-card-vente button:hover {
+    background-color: red;
+}
+
+
+
+#noVentesMessage {
+    color: red;
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+    .popup {
+        width: 90%;
+    }
+
+   
+}

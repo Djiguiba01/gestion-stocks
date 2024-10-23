@@ -1,0 +1,292 @@
+/* Stock.css */
+
+/* Styles par défaut pour bureau ou grands écrans */
+.stock-card {
+    justify-content: space-between;
+    display: flex;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    text-align: center;
+    /* max-width: 500px;  */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stock-card h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px; /* Taille de police pour grands écrans */
+}
+
+.add-product-button {
+    padding: 10px 20px;
+    background-color: darkslateblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.add-product-button:hover {
+    background-color: red; /* Changement de couleur lors du survol */
+}
+
+/* Styles pour les petits écrans (tablettes et téléphones) */
+@media (max-width: 768px) {
+    .stock-card {
+        padding: 15px;
+        margin: 15px;
+        max-width: 100%; /* La carte prend toute la largeur de l'écran */
+    }
+
+    .stock-card h2 {
+        font-size: 20px; /* Réduire la taille de la police sur tablette */
+    }
+
+    .product-list{
+        padding: 15px;
+    }
+
+    .add-product-button {
+        padding: 8px 15px;
+        font-size: 14px; /* Réduire la taille de la police du bouton sur tablette */
+    }
+    /* .menu-main{
+        padding: 20px;
+    } */
+}
+
+/* Styles pour très petits écrans (mobiles) */
+@media (max-width: 480px) {
+    .stock-card {
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .stock-card h2 {
+        font-size: 18px; /* Taille de police plus petite pour mobile */
+    }
+
+    .add-product-button {
+        padding: 6px 10px;
+        font-size: 12px; /* Réduire encore la taille de la police sur mobile */
+    }
+}
+
+
+
+/* Styles pour le popup */
+#popupTitle{
+    text-align: center;
+    color: darkslateblue;
+}
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: #fefefe; /* Couleur de fond plus claire pour le popup */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 450px; /* Largeur maximale du popup */
+    text-align: left;
+    animation: slideIn 0.3s; /* Animation d'apparition */
+}
+
+/* Animation pour le popup */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.popup-content h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px; /* Taille de la police pour le titre */
+    color: #343a40; /* Couleur du titre sombre */
+}
+.popup-content p {
+    text-align: center;
+    
+}
+
+.popup-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold; /* Gras pour les labels */
+    color: #495057; /* Couleur des labels */
+}
+
+.popup-content input,
+.popup-content select {
+    width: 100%; /* Prend toute la largeur */
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da; /* Bordure plus claire */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 16px; /* Taille de la police */
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.popup-buttons button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transition pour effet d'échelle */
+    font-size: 16px; /* Taille de la police */
+}
+
+.popup-buttons button:first-child {
+    background-color: darkslateblue; /* Couleur du bouton Ajouter */
+    color: white;
+}
+
+.popup-buttons button:first-child:hover {
+    background-color: darkslateblue; /* Couleur au survol */
+    transform: scale(1.05); /* Effet d'agrandissement au survol */
+}
+
+.popup-buttons button:last-child {
+    background-color: #dc3545; /* Couleur du bouton Annuler */
+    color: white;
+}
+
+.popup-buttons button:last-child:hover {
+    background-color: #c82333; /* Couleur au survol */
+    transform: scale(1.05); /* Effet d'agrandissement au survol */
+}
+
+#confirmDeleteBtn{
+    background-color: red;
+}
+#cancelDeleteBtn, #cancelBtn{
+    background-color: darkslateblue;
+    color: white;
+}
+
+
+/*  */
+.product-list {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9; /* Light background for product list */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .product-header {
+    display: flex;
+    justify-content: space-between; /* Space between headers */
+    padding: 10px;
+    background-color: darkslateblue; /* Header background color */
+    color: white; /* Header text color */
+    border-radius: 8px 8px 0 0; /* Rounded corners at the top */
+    font-weight: bold; /* Make header text bold */
+  }
+  
+  .product-header div {
+    flex: 1; /* Equal width for headers */
+    text-align: center; /* Center text */
+  }
+  
+  .product-list ul {
+    list-style: none; /* Remove bullets */
+    padding: 0;
+    margin: 0; /* Remove default margin */
+  }
+  
+  .product-list li {
+    display: flex;
+    justify-content: space-between; /* Space between product details */
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Separator between items */
+  }
+  
+  .product-list li span {
+    flex: 1; /* Equal width for product details */
+    text-align: center; /* Center text */
+  }
+  
+  .product-list li:last-child {
+    border-bottom: none; /* Remove border for last item */
+  }
+  
+  .product-list li:hover {
+    background-color: #e6f7ff; /* Highlight on hover */
+  }
+  
+  .product-list p {
+    color: #888; /* Style for the message when no products are added */
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .error-message {
+  color: red;
+  font-size: 12px;
+}
+
+
+/* ::::::::BARRE DE RECHERCHE:::::::::: */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#searchInput {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    font-size: 16px;
+    outline: none;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+#searchInput:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Ombre au hover */
+    border-color: #495057; /* Couleur de la bordure au hover */
+}
+
+#searchInput:focus {
+    border-color: #394653; /* Couleur de la bordure au focus */
+}
+
+#searchInput::placeholder {
+    color: #aaa;
+}
+
