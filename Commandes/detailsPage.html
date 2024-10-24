@@ -110,13 +110,22 @@
             width: 300px;
         }
 
-        #popupForm input, #editPopupForm input {
-            width: 100%;
+        #popupForm input, #editPopupForm ,#editUnite,  input {
+            width: 90%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+
+       #unite {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
 
         #popupForm button, #editPopupForm button {
             padding: 10px;
@@ -164,7 +173,7 @@
 </head>
 <body>
     <div class="details-container">
-        <h1>Détails de l'élément</h1>
+        <h2>Détails Commande</h2>
         <div id="detailsContent"></div>
         <!-- <div class="btn-container">
             <button id="backBtn">Retour</button>
@@ -181,25 +190,54 @@
     <!-- Popup pour ajouter une ligne -->
     <div id="overlay"></div>
     <div id="popupForm">
-        <h3>Ajouter un produit</h3>
-        <input type="text" id="designation" placeholder="Désignation du produit" required>
+        <h3 style="text-align: center; color: darkslateblue;">Ajouter une commande</h3>
+        <input type="text" id="designation" placeholder="Désignation " required>
         <input type="text" id="variete" placeholder="Variété (facultatif)">
         <input type="number" id="quantite" placeholder="Quantité" required>
-        <input type="text" id="unite" placeholder="Unité" required>
-        <button id="ajouterBtn">Ajouter</button>
+        <select id="unite" name="unite" required>
+            <option value="">Sélectionnez une unité</option> <!-- Ajoutez une option vide -->
+            <option value="Gr">Gr</option>
+            <option value="Kg">Kg</option>
+            <option value="boîte(s)">Boîte(s)</option>
+            <option value="Carton(s)">Carton(s)</option>
+            <option value="Pièce(s)">Pièce(s)</option>
+        </select>
+        <div class="ajoutboutoncom" style="display: flex; justify-content: space-between;">
+            <button id="ajouterBtn">Ajouter</button>
         <button id="annulerBtn">Annuler</button>
+        </div>
     </div>
+    
 
     <!-- Popup pour modifier une ligne -->
     <div id="editPopupForm">
-        <h3>Modifier le produit</h3>
+        <div class="close-icon" id="editAnnulerBtn" onclick="hidePopup()" style="position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+        color: black;
+        cursor: pointer; 
+        transition: color 0.3s; ">
+            &times; <!-- Icône de fermeture -->
+        </div>
+        <h3 style="text-align: center; color: darkslateblue;">Modifier cette commande</h3>
         <input type="text" id="editDesignation" placeholder="Désignation du produit" required>
         <input type="text" id="editVariete" placeholder="Variété (facultatif)">
         <input type="number" id="editQuantite" placeholder="Quantité" required>
-        <input type="text" id="editUnite" placeholder="Unité" required>
-        <button id="updateBtn">Mettre à jour</button>
+
+        <select id="editUnite" name="unite" required>
+            <option value="">Sélectionnez une unité</option> <!-- Ajoutez une option vide -->
+            <option value="Gr">Gr</option>
+            <option value="Kg">Kg</option>
+            <option value="boîte(s)">Boîte(s)</option>
+            <option value="Carton(s)">Carton(s)</option>
+            <option value="Pièce(s)">Pièce(s)</option>
+        </select>
+        <div class="editBoutonmodit" style="display: flex; justify-content: space-between;">
+            <button id="updateBtn">Mettre à jour</button>
         <button id="deleteBtn">Supprimer</button>
-        <button id="editAnnulerBtn">Annuler</button>
+        </div>
+        <!-- <button id="editAnnulerBtn">Annuler</button> -->
     </div>
 
     <script>
@@ -220,11 +258,11 @@
                     detailsContainer.innerHTML = `
                         <p><strong>Fournisseur:</strong> ${selectedItem.fournisseur}</p>
                         <p><strong>Date:</strong> ${selectedItem.date}</p>
-                        <p><strong>Détails des produits:</strong></p>
+                        <p><strong>Détails des commandes:</strong></p>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Produit</th>
+                                    <th>Désignation</th>
                                     <th>Variété</th>
                                     <th>Quantité</th>
                                     <th>Unité</th>
@@ -367,14 +405,14 @@
 
                 // Ajouter un titre
                 doc.setFontSize(16);
-                doc.text(`Détails de l'élément`, 14, 10);
+                doc.text(`Détails Commande`, 14, 10);
                 doc.setFontSize(12);
-                doc.text(`Fournisseur: ${fournisseur}`, 14, 20);
+                doc.text(`Fournisseur: ${fournisseur}`,  14, 20);
                 doc.text(`Date: ${date}`, 14, 30);
 
                 // Ajouter la table des détails
                 doc.autoTable({
-                    head: [['Produit', 'Variété', 'Quantité', 'Unité']],
+                    head: [['Désignation', 'Variété', 'Quantité', 'Unité']],
                     body: details.map(detail => [
                         detail.designation,
                         detail.variete || 'N/A',
@@ -388,7 +426,7 @@
                 // Sauvegarder le PDF
                 doc.save(`Commande_${fournisseur}.pdf`);
             } else {
-                alert("Aucun détail trouvé pour cet élément.");
+                alert("Aucun détail trouvé pour cette commade.");
             }
         });
 

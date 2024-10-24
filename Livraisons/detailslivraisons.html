@@ -168,7 +168,7 @@ button:hover {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
-    <h1>Détails de la Livraison</h1>
+    <h2>Détails de la Livraison</h2>
     <div id="detailsContainer" class="details"></div>
     <div class="button-container">
         <button class="uneLigne" id="addRowBtn">
@@ -385,13 +385,13 @@ button:hover {
             const doc = new jsPDF();
 
             // Titre
-            doc.text("Détails de la Livraison", 10, 10);
+            doc.text("Détails de la Livraison", 14, 10);
             const livraison = livraisons.find(l => l.destination === destinationId);
             
             // Vérifier si la livraison existe
             if (livraison) {
-                doc.text(`Destination: ${livraison.destination}`, 10, 20);
-                doc.text(`Date: ${livraison.date}`, 10, 30);
+                doc.text(`Destination: ${livraison.destination}`, 14, 20);
+                doc.text(`Date: ${livraison.date}`, 14, 30);
                 // doc.text("Articles:", 10, 40);
                 
                 // En-tête du tableau
