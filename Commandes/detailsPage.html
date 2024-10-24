@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails de l'élément</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 
     <style>
         /* Styles de base pour la page */
@@ -350,46 +351,53 @@
 
 
 
-        // :::::::::::::::::::::::::::::::::::
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+        // :::::::::::::FONCTION TELECHARGEMENT::::::::::::::::::::::
+         // Fonction pour télécharger le contenu de details-container en PDF
+         document.getElementById('downloadBtn').addEventListener('click', function() {
+            const itemId = getItemIdFromUrl();
+            const finalList = JSON.parse(localStorage.getItem('finalList'));
+            const selectedItem = finalList[itemId];
 
-            // Ajouter un titre au PDF
-            doc.text("Détails de la Livraison", 10, 10);
+            if (selectedItem) {
+                const { fournisseur, date, details } = selectedItem;
 
-            // Récupérer les informations de la livraison
-            const destination = document.getElementById('destination').textContent;
-            const date = document.getElementById('date').textContent;
-            doc.text(destination, 10, 20);
-            doc.text(date, 10, 30);
+                // Créez un document PDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
 
-            // En-têtes du tableau
-            const headers = ["Désignation", "Variété", "Quantité", "Unité"];
-            const rows = [];
+                // Ajouter un titre
+                doc.setFontSize(16);
+                doc.text(`Détails de l'élément`, 14, 10);
+                doc.setFontSize(12);
+                doc.text(`Fournisseur: ${fournisseur}`, 14, 20);
+                doc.text(`Date: ${date}`, 14, 30);
 
-            // Récupérer les données du tableau HTML
-            const rowsHTML = document.querySelectorAll('#details tbody tr');
-            rowsHTML.forEach(row => {
-                const rowData = [];
-                row.querySelectorAll('td').forEach(cell => rowData.push(cell.textContent));
-                rows.push(rowData);
-            });
+                // Ajouter la table des détails
+                doc.autoTable({
+                    head: [['Produit', 'Variété', 'Quantité', 'Unité']],
+                    body: details.map(detail => [
+                        detail.designation,
+                        detail.variete || 'N/A',
+                        detail.quantite,
+                        detail.unite
+                    ]),
+                    startY: 40,
+                    // theme: 'grid',
+                });
 
-            // Générer le tableau dans le PDF
-            doc.autoTable({
-                head: [headers],
-                body: rows,
-                startY: 40
-            });
-
-            // Nommer le fichier PDF
-            const pdfFileName = `livraison_${destination.split(':')[1].trim()}.pdf`;
-
-            // Télécharger le PDF
-            doc.save(pdfFileName);
+                // Sauvegarder le PDF
+                doc.save(`Commande_${fournisseur}.pdf`);
+            } else {
+                alert("Aucun détail trouvé pour cet élément.");
+            }
         });
+
        
+      
+
+    // :::::::
+   
+
         
     </script>
 </body>
