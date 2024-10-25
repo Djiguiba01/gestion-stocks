@@ -112,7 +112,28 @@ document.addEventListener('DOMContentLoaded', function() {
             // Sinon, affiche les livraisons
             livraisons.forEach((livraison) => {
                 const li = document.createElement('li');
-                li.textContent = `${livraison.destination} - ${livraison.date}`;
+    
+                // Crée un conteneur pour les éléments de livraison
+                const container = document.createElement('div');
+                container.style.display = 'flex'; // Applique display flex
+                container.style.justifyContent = 'space-between'; // Espace entre les éléments
+                container.style.alignItems = 'center'; // Centre verticalement les éléments
+    
+                // Crée des éléments pour la destination et la date
+                const destination = document.createElement('span');
+                destination.textContent = livraison.destination;
+    
+                const date = document.createElement('span');
+                date.textContent = livraison.date;
+    
+                // Ajoute les éléments au conteneur
+                container.appendChild(destination);
+                container.appendChild(date);
+    
+                // Ajoute le conteneur à l'élément li
+                li.appendChild(container);
+    
+                // Ajoute l'élément li à la liste
                 livraisonList.appendChild(li);
     
                 // Ajouter un événement de clic pour chaque livraison
@@ -122,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+    
     
 
     // Fonction pour ajouter l'article actuel à la liste

@@ -216,3 +216,8 @@
     text-align: center; /* Centre le texte à l'intérieur de la carte */
     background-color: #f9f9f9; /* Couleur de fond claire */
 }
+.livraison-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centrer verticalement */
+}
