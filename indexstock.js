@@ -14,6 +14,7 @@ class Product {
     const addProductBtn = document.getElementById('addProductBtn');
     const submitBtn = document.getElementById('submitBtn');
     const cancelBtn = document.getElementById('cancelBtn');
+    const closeIcon = document.getElementById('closeIcon');
     const deleteBtn = document.getElementById('deleteBtn');
     const popupOverlay = document.getElementById('popupOverlay');
     const confirmDeleteOverlay = document.getElementById('confirmDeleteOverlay');
@@ -193,10 +194,13 @@ class Product {
     document.getElementById('popupTitle').textContent = 'MODIFIER UN PRODUIT';
     deleteBtn.style.display = 'inline';  // Afficher le bouton supprimer lors de la modification
     cancelBtn.style.display = 'none';    // Cacher le bouton annuler lors de la modification
+    closeIcon.style.display='inline';
+
   } else {
     document.getElementById('popupTitle').textContent = 'AJOUTER UN PRODUIT';
     deleteBtn.style.display = 'none';    // Cacher le bouton supprimer lors de l'ajout
     cancelBtn.style.display = 'inline';  // Afficher le bouton annuler lors de l'ajout
+    closeIcon.style.display='none';
   }
 }
 
@@ -214,6 +218,9 @@ class Product {
     }
 
     
-
+    document.getElementById("closeIcon").addEventListener("click", function() {
+      document.getElementById("popupOverlay").style.display = "none";
+    });
+    
 
 });
