@@ -207,3 +207,12 @@
     text-align: center; /* Centrage du titre */
     margin-bottom: 15px; /* Espacement sous le titre */
 }
+.cardaucuneliste {
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 20px; /* Espacement intérieur */
+    margin: 20px 0; /* Espacement extérieur */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    text-align: center; /* Centre le texte à l'intérieur de la carte */
+    background-color: #f9f9f9; /* Couleur de fond claire */
+}

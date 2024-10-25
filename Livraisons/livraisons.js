@@ -86,20 +86,43 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Fonction pour afficher les livraisons
+    // function displayLivraisons() {
+    //     livraisonList.innerHTML = '';
+
+    //     livraisons.forEach((livraison) => {
+    //         const li = document.createElement('li');
+    //         li.textContent = `${livraison.destination} - ${livraison.date}`;
+    //         livraisonList.appendChild(li);
+
+    //         li.addEventListener('click', function() {
+    //             showLivraisonDetails(livraison);
+    //         });
+    //     });
+    // }
     function displayLivraisons() {
-        livraisonList.innerHTML = '';
-
-        livraisons.forEach((livraison) => {
-            const li = document.createElement('li');
-            li.textContent = `${livraison.destination} - ${livraison.date}`;
-            livraisonList.appendChild(li);
-
-            // Ajouter un événement de clic pour chaque livraison
-            li.addEventListener('click', function() {
-                showLivraisonDetails(livraison);
+        livraisonList.innerHTML = ''; // Réinitialise la liste
+    
+        if (livraisons.length === 0) {
+            // Si la liste est vide, affiche un message dans une carte
+            const card = document.createElement('div');
+            card.className = 'cardaucuneliste'; // Applique la classe de la carte
+            card.innerHTML = '<p>Ajouter une livraison...</p>';
+            livraisonList.appendChild(card); // Ajoute la carte à la liste
+        } else {
+            // Sinon, affiche les livraisons
+            livraisons.forEach((livraison) => {
+                const li = document.createElement('li');
+                li.textContent = `${livraison.destination} - ${livraison.date}`;
+                livraisonList.appendChild(li);
+    
+                // Ajouter un événement de clic pour chaque livraison
+                li.addEventListener('click', function() {
+                    showLivraisonDetails(livraison);
+                });
             });
-        });
+        }
     }
+    
 
     // Fonction pour ajouter l'article actuel à la liste
     function addCurrentArticleToList() {
